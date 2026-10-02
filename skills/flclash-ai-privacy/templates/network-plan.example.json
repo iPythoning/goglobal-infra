@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "paths": {
+    "profile": "<PRIVATE_LOCAL_PROFILE_PATH>",
+    "receipt": "<PRIVATE_NEW_REVIEW_RECEIPT_PATH>",
+    "rollback_state": "<PRIVATE_NEW_ROLLBACK_STATE_PATH>",
+    "lock": "<PRIVATE_SHARED_LOCK_PATH_FOR_THIS_PROFILE>"
+  },
+  "static_node_name": "<EXISTING_VERIFIED_NUMERIC_GATEWAY_NODE_NAME>",
+  "group_names": {
+    "ai": "<AI_GROUP_NAME>",
+    "direct": "<STATIC_DIRECT_GROUP_NAME>",
+    "chain": "<STATIC_HK_CHAIN_GROUP_NAME>"
+  },
+  "default_exit_name": "<STATIC_DIRECT_GROUP_NAME>",
+  "chain": {
+    "node_name": "<NEW_HK_CHAIN_NODE_NAME>",
+    "dialer_proxy_name": "<EXISTING_VERIFIED_HK_NODE_OR_FAIL_CLOSED_GROUP_NAME>"
+  },
+  "additional_verified_exit_names": [],
+  "dns": {
+    "main_doh_urls": ["<VERIFIED_DOH_HTTPS_URL_WITHOUT_FRAGMENT>"],
+    "bootstrap_doh_urls": ["<VERIFIED_NUMERIC_HOST_DOH_HTTPS_URL_WITHOUT_FRAGMENT>"],
+    "local_dns_policy_keys": [],
+    "resolver_paths": {
+      "fallback": [],
+      "nameserver-policy": {},
+      "direct-nameserver": [],
+      "proxy-server-nameserver-policy": {}
+    },
+    "settings": {
+      "enable": true,
+      "respect-rules": true,
+      "prefer-h3": false
+    }
+  },
+  "ai_rule_provider": {
+    "name": "<NEW_AI_RULE_PROVIDER_NAME>",
+    "specification": {
+      "type": "http",
+      "behavior": "classical",
+      "format": "text",
+      "url": "<VERIFIED_PUBLIC_AI_LIST_HTTPS_URL>",
+      "path": "<RULE_PROVIDER_CACHE_PATH_APPROPRIATE_TO_THIS_CLIENT>",
+      "interval": "<READER_SELECTED_POSITIVE_REFRESH_SECONDS>",
+      "proxy": "<STATIC_DIRECT_GROUP_NAME>"
+    }
+  },
+  "retarget_ai_rules": [],
+  "additional_ai_domain_suffixes": []
+}

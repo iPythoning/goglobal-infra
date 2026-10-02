@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/iPythoning/goglobal-infra",
+  "related_service": "https://shop.paibao.ai",
+  "title": "FlClash AI routing and DNS privacy: a practical guide",
+  "x_thread": [
+    "A fixed AI IP does not prove the whole connection is private. HTTPS, DNS, WebRTC and IPv6 can take different paths. We wrote a practical FlClash guide that checks each one separately.",
+    "Keep normal website routing intact. Give known AI domains a fixed exit, add an optional HK upstream, and keep subscription updates. Avoid an automatic DIRECT fallback in the AI group.",
+    "Use encrypted DNS with an explicit proxy path. Keep bootstrap resolution independent of the chain it must resolve. Test DNS separately from the public HTTPS address.",
+    "A network test should distinguish a fixed IP from a verified residential connection. A browser risk score cannot establish Claude account status or a calibrated ban probability.",
+    "The portable agent Skill previews a local configuration change before applying it. Preserve unrelated rules and credentials, then verify fresh connections. No promise of zero interruption.",
+    "Chinese + English guide and agent Skill: https://ipythoning.github.io/goglobal-infra/\nRelated services: https://shop.paibao.ai"
+  ],
+  "linkedin": "A fixed AI exit is only one part of a network privacy check.\n\nOur FlClash guide covers three separate concerns:\n1. Known AI domains use a fixed exit; other website routing and subscription updates stay intact.\n2. Encrypted DNS uses explicit proxy paths and independent bootstrap resolution.\n3. WebRTC, IPv6 and new HTTPS connections get their own tests.\n\nIt includes direct and optional HK upstream configurations, detailed computer settings, and a portable agent Skill that previews changes before applying them. Static and residential are different claims; a browser risk score is not an account-safety guarantee.\n\nGuide: https://ipythoning.github.io/goglobal-infra/\nRelated services: https://shop.paibao.ai\n\n#FlClash #DNS #NetworkPrivacy #AITools",
+  "facebook": "Using a fixed exit for AI tools? Check the rest of the path too. Our new FlClash guide walks through computer settings, AI rules, direct and HK upstream routing, encrypted DNS, subscription updates, WebRTC and IPv6. It includes a portable configuration Skill for agents with the required local permissions.\n\nPreview changes, preserve existing routing, and verify fresh connections. A stable address alone does not prove residential access or account safety.\n\nGuide: https://ipythoning.github.io/goglobal-infra/\nRelated services: https://shop.paibao.ai",
+  "instagram": "Fixed AI egress, encrypted DNS and WebRTC are separate checks. This FlClash guide covers computer settings, detailed rules, direct/HK paths, subscription preservation and a portable agent Skill.\n\nGuide: https://ipythoning.github.io/goglobal-infra/\nRelated services: https://shop.paibao.ai\n\n#FlClash #DNS #NetworkPrivacy #AITools",
+  "threads": "Fixed AI egress is only one check. Our FlClash guide also covers encrypted DNS, WebRTC, IPv6, subscription updates and a portable configuration Skill.\nGuide: https://ipythoning.github.io/goglobal-infra/\nRelated: https://shop.paibao.ai",
+  "bluesky": "Fixed AI egress ≠ complete privacy. Our FlClash guide covers DNS, WebRTC, IPv6, direct/HK routing and a portable agent Skill.\nhttps://ipythoning.github.io/goglobal-infra/\nRelated: https://shop.paibao.ai",
+  "mastodon": "A fixed AI IP is one part of a privacy check. Our FlClash guide separates HTTPS egress, DNS, WebRTC and IPv6, and includes direct/HK routing, subscription preservation and a portable agent Skill.\nhttps://ipythoning.github.io/goglobal-infra/\nRelated services: https://shop.paibao.ai\n#FlClash #DNS #NetworkPrivacy",
+  "pinterest_title": "FlClash AI routing and DNS privacy guide",
+  "pinterest_description": "Detailed computer and FlClash settings, direct and HK upstream paths, encrypted DNS, subscription preservation, independent leak checks and a portable agent Skill. Guide: https://ipythoning.github.io/goglobal-infra/ Related services: https://shop.paibao.ai",
+  "video_title": "FlClash: check AI egress, DNS, WebRTC and IPv6 separately",
+  "video_description": "A practical FlClash guide with computer settings, direct and optional HK upstream routing, encrypted DNS, subscription preservation and a portable agent Skill. Tests should report partial results honestly; static egress does not establish residential access or account safety.\nGuide: https://ipythoning.github.io/goglobal-infra/\nRelated services: https://shop.paibao.ai",
+  "website": "https://ipythoning.github.io/goglobal-infra/"
+}

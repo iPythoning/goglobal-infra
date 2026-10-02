@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlClash AI Routing and DNS Privacy: A Full-Path Guide</title><meta name="description" content="Computer, browser and FlClash settings for known AI services, fixed egress, optional HK upstream, encrypted DNS, subscription preservation and a portable agent Skill.">
+<link rel="canonical" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html"><link rel="alternate" hreflang="zh-CN" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html"><link rel="alternate" hreflang="en" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FlClash AI Routing and DNS Privacy: A Full-Path Guide"><meta property="og:description" content="Computer, browser and FlClash settings for known AI services, fixed egress, optional HK upstream, encrypted DNS, subscription preservation and a portable agent Skill.">
+<meta property="og:url" content="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html"><meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="https://ipythoning.github.io/goglobal-infra/assets/styles.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FlClash AI Routing and DNS Privacy: A Full-Path Guide", "description": "Computer, browser and FlClash settings for known AI services, fixed egress, optional HK upstream, encrypted DNS, subscription preservation and a portable agent Skill.", "inLanguage": "en", "datePublished": "2026-10-02", "dateModified": "2026-10-02", "author": {"@type": "Person", "name": "iPythoning"}, "mainEntityOfPage": "https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html"}</script>
+</head><body><a class="skip" href="#content">Skip to content / 跳至正文</a>
+<header><a class="brand" href="https://ipythoning.github.io/goglobal-infra/">GoGlobal Infra</a>
+<nav aria-label="Project"><a href="https://github.com/iPythoning/goglobal-infra">GitHub</a><a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md">Agent Skill</a><a href="https://shop.paibao.ai">shop.paibao.ai</a></nav></header>
+<main id="content"><div class="breadcrumb"><a href="https://ipythoning.github.io/goglobal-infra/">GoGlobal Infra</a> / AI network privacy</div><div class="languages"><a lang="zh-CN" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html">zh-CN</a> · <a lang="en" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html">en</a></div><article><h1 id="from-your-computer-to-ai-services-flclash-egress-and-dns-privacy">From Your Computer to AI Services: FlClash Egress and DNS Privacy</h1>
+<p><a href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html">中文</a> · <a href="https://github.com/iPythoning/goglobal-infra/blob/main/README.en.md">Project home</a> · <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md">Configuration Skill</a></p>
+<p>The goal is to send <strong>known overseas AI services through verified fixed egress, use an explicit encrypted proxy path for DNS, and preserve existing routing for other websites</strong>. This guide covers the computer, browser, FlClash, subscription updates, AI CLI tools, and independent checks.</p>
+<p>The tested baseline is <strong>macOS and FlClash 0.8.98</strong>. Public sources were checked on <strong>2026-10-02 UTC</strong>. Menus and loading behavior may change between client versions. Windows and Linux notes require their own acceptance checks. The case did not establish that every protocol used the same confirmed residential egress; those limitations remain part of the guide.</p>
+<h2 id="1-define-acceptance-before-changing-settings">1. Define acceptance before changing settings</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Evidence required</th>
+<th>What it does not establish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI TCP / HTTPS</td>
+<td>New connections to each actual AI hostname reach the expected egress</td>
+<td>UDP, WebRTC, or IPv6 necessarily uses it</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>Queries take the intended path, with no observed unauthorized ISP resolvers</td>
+<td>Resolver IPs must equal the proxy egress</td>
+</tr>
+<tr>
+<td>WebRTC</td>
+<td>ICE candidates reveal no unapproved public path</td>
+<td>No candidates prove all browsers and future sessions are covered</td>
+</tr>
+<tr>
+<td>IPv6</td>
+<td>The selected policy covers IPv6, or it is unavailable within an explicitly IPv4-only design</td>
+<td><code>dns.ipv6: false</code> blocks IPv6 across the operating system</td>
+</tr>
+<tr>
+<td>Egress classification</td>
+<td>Stability, ownership information, and service delivery meet the requirement</td>
+<td>A “residential” label or fixed address establishes residential service</td>
+</tr>
+<tr>
+<td>Account / API</td>
+<td>An authorized official client function actually works</td>
+<td>A third-party percentage predicts account suspension</td>
+</tr>
+</tbody>
+</table>
+<p>Use independent conditions instead of a single green score. This is a network configuration and privacy diagnostic workflow; it does not require logging into a diagnostic site, submitting account tokens, or altering identity information.</p>
+<h2 id="2-gather-inputs-and-record-the-baseline">2. Gather inputs and record the baseline</h2>
+<p>Determine the following locally. Keep subscription URLs and credentials in private configuration or a trusted credential system, outside agent conversations, public Issues, and screenshots.</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Source and purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Explicit active profile</td>
+<td>Confirm the selected profile in FlClash; do not infer its file from modification time</td>
+</tr>
+<tr>
+<td>Fixed gateway node</td>
+<td>A trusted local runtime reads its existing name, protocol, numeric address, and authentication</td>
+</tr>
+<tr>
+<td>Expected final egress</td>
+<td>Confirm through service authorization and independent connection tests; it may differ from the gateway address</td>
+</tr>
+<tr>
+<td>Authorized source</td>
+<td>Establish which upstream public address the final HTTP / SOCKS service accepts</td>
+</tr>
+<tr>
+<td>HK candidates</td>
+<td>Identify subscription node names, connectivity, and protocol capability</td>
+</tr>
+<tr>
+<td>Subscription metadata</td>
+<td>Preserve the original update toggle, interval, User-Agent, and source</td>
+</tr>
+<tr>
+<td>Network constraints</td>
+<td>Record resolvers, TUN, IPv6, LAN, corporate VPN / Tailscale, and remote sessions</td>
+</tr>
+<tr>
+<td>Routing scope</td>
+<td>AI only or the whole device; this guide assumes AI only</td>
+</tr>
+</tbody>
+</table>
+<p>Record mode, system proxy, TUN, DNS override, automatic connection-closing behavior, and existing long-lived connections before editing. Keep recovery material locally with restricted access. Raw profiles can contain passwords and subscription tokens; do not add them to this public repository.</p>
+<p>For an active meeting, remote session, or agent connection over the same proxy, use the already running core and TUN. <strong>Installing TUN for the first time, changing an interface or protocol stack, or restarting a client can affect connectivity. They are not zero-disruption steps.</strong></p>
+<h2 id="3-computer-and-browser-settings">3. Computer and browser settings</h2>
+<h3 id="macos-inspect-first">macOS: inspect first</h3>
+<p>Inspect resolvers and search domains under System Settings → Network → active service → Details → DNS. Inspect the proxy settings to confirm that FlClash points to the intended local listener. See <a href="https://support.apple.com/guide/mac-help/change-dns-settings-on-mac-mh14127/mac">Apple’s DNS settings instructions</a>.</p>
+<p>Do not immediately delete a public DNS address shown by the operating system. TUN may already intercept requests to it; removing it can restore a router or corporate resolver through DHCP. Mihomo documents that macOS and Windows cannot automatically hijack DNS sent to the LAN. Verify the current destination over both UDP and TCP before choosing a change. <a href="https://wiki.metacubex.one/en/config/inbound/tun/#dns-hijack">Mihomo DNS hijacking</a></p>
+<p>Local inspection commands:</p>
+<pre><code class="language-sh">scutil --dns
+scutil --proxy
+networksetup -listallnetworkservices
+route -n get &quot;${PUBLIC_TEST_IP:?set from your local test plan}&quot;
+dig @&quot;${CURRENT_DNS_IP:?set from your local network}&quot; &quot;${TEST_DOMAIN:?set from your test plan}&quot; A
+dig +tcp @&quot;${CURRENT_DNS_IP:?set from your local network}&quot; &quot;${TEST_DOMAIN:?set from your test plan}&quot; A
+</code></pre>
+<p>Supply the variables from your local configuration. <code>scutil</code> may expose internal domains and interface information, so share only a necessary redacted summary. An existing fake-IP configuration may return a synthetic address for a test domain. That supports interception into the corresponding resolution process; encrypted DNS connections and an independent leak test must still verify the next hop.</p>
+<p>Preserve LAN and corporate VPN split DNS. Avoid unrelated changes to search domains, excluded routes, and proxy bypass entries. Audit other VPN or filtering software and use actual route evidence when multiple tools coexist.</p>
+<h3 id="browser-dns-assign-responsibility-explicitly">Browser DNS: assign responsibility explicitly</h3>
+<p>This design delegates public-domain encrypted DNS to Mihomo. <strong>Make the proxied DoH path in section 6 work before turning off browser secure DNS.</strong> Turning off secure DNS transfers responsibility; without encrypted upstream DNS, interception, and the intended browser route, it can instead downgrade privacy.</p>
+<p>Chrome exposes the setting under Settings → Privacy and security → Security → Use secure DNS. Check Ego and other Chromium browsers separately; a change in Chrome does not prove their setting changed. Google also distinguishes fallback in automatic mode from custom-provider behavior. <a href="https://support.google.com/chrome/answer/10468685?co=GENIE.Platform%3DDesktop&amp;hl=en">Chrome documentation</a></p>
+<p>Firefox has separate DoH protection levels. If it also delegates resolution to Mihomo, verify its own setting and repeat acceptance checks. A managed browser requires the administrator’s policy process. <a href="https://support.mozilla.org/en-US/kb/dns-over-https">Firefox documentation</a></p>
+<p>If an automation tool prohibits internal settings pages, the user performs the change and records that evidence. An agent must not bypass the prohibition through another tool. Retain Safe Browsing, certificate verification, and HTTPS protections.</p>
+<h3 id="ipv6-and-webrtc">IPv6 and WebRTC</h3>
+<p>Measure IPv4 and IPv6 separately. If IPv6 is required, use a proxy and TUN route that support it. The active network in the case already restricted IPv6; this guide does not instruct everyone to disable it on every interface. Interface changes can affect connectivity and need separate evaluation.</p>
+<p>WebRTC UDP can take another route. A TCP-only SOCKS node and domain rules do not establish that STUN follows AI egress. If the goal includes prohibiting non-proxied UDP, evaluate a browser-supported <code>disable_non_proxied_udp</code> policy and its effect on calls. That is a separate browser change: <strong>it was not configured and accepted as passing in this case</strong>. Check support for the browser and management method, then test candidates and calling behavior.</p>
+<p>Do not change real language, timezone, or fonts to chase a diagnostic score.</p>
+<h2 id="4-establish-the-direction-of-the-proxy-chain">4. Establish the direction of the proxy chain</h2>
+<p>Assume an existing SOCKS gateway at a numeric address already uses a fixed final egress internally. The names below are illustrative; your local plan supplies actual names.</p>
+<pre><code class="language-mermaid">flowchart LR
+    A[Computer] --&gt; B{AI group}
+    B --&gt; C[US-DIRECT]
+    C --&gt; G[Existing fixed SOCKS gateway]
+    B --&gt; D[US-HK]
+    D --&gt; E[HK-UPSTREAM]
+    E --&gt; G
+    G --&gt; F[Authorized fixed egress inside gateway]
+    F --&gt; H[AI service]
+</code></pre>
+<p>Distinguish the <strong>connection endpoint, authorized source, and final egress</strong>. If a final HTTP proxy accepts only the gateway’s public address, connecting directly from your computer can fail. Entering through an accessible authorized gateway is the correct path. In this case, the existing SOCKS gateway already returned the fixed final egress, so it was preserved and cloned with an HK upstream.</p>
+<p>“Direct” in <code>US-DIRECT</code> means direct to the gateway. It is not Clash’s <code>DIRECT</code> policy. The cloned gateway node adds <code>dialer-proxy: HK-UPSTREAM</code>, giving computer → HK → gateway → final egress. Verify the source authorized by the next endpoint. Do not let the HK group select the cloned node in return, which creates a cycle. <a href="https://wiki.metacubex.one/en/config/proxies/dialer-proxy/">Mihomo dialer-proxy</a></p>
+<p>If you only have the final HTTP endpoint and no suitable gateway, build a chain through the upstream it actually authorizes. A path without HK exists only when the computer’s public address is also authorized and tested, or another accessible authorized gateway provides it. This case does not imply that any fixed endpoint is directly reachable.</p>
+<p>Plain SOCKS5 does not encrypt its transport; HTTPS content retains its own TLS. If gateway authentication and metadata need protection, verify a supported TLS or other encrypted transport. Using DoH for DNS does not establish encryption of the entire proxy chain. <a href="https://wiki.metacubex.one/en/config/proxies/socks/">Mihomo SOCKS configuration</a></p>
+<h2 id="5-detailed-flclash-settings-and-groups">5. Detailed FlClash settings and groups</h2>
+<h3 id="51-work-with-the-running-network">5.1 Work with the running network</h3>
+<p>Check these items in the installed client. Preserve a compliant existing state instead of repeatedly toggling networking.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Target for this design</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode</td>
+<td>Rule</td>
+<td>Rule selected on the dashboard; Global changes non-AI routing</td>
+</tr>
+<tr>
+<td>System proxy</td>
+<td>On</td>
+<td>Dashboard and OS proxy state agree</td>
+</tr>
+<tr>
+<td>Virtual network / TUN</td>
+<td>On</td>
+<td>Existing TUN works and a public test destination routes through it</td>
+</tr>
+<tr>
+<td>Automatically close connections</td>
+<td>Off</td>
+<td>Locate the setting in this version to avoid active connection cleanup on switching</td>
+</tr>
+<tr>
+<td>Global DNS override</td>
+<td>Off</td>
+<td>The active profile supplies DNS; avoid competing definitions</td>
+</tr>
+<tr>
+<td>TUN device, stack, MTU, routes</td>
+<td>Preserved</td>
+<td>A hot edit must not change these fields and rebuild the interface</td>
+</tr>
+</tbody>
+</table>
+<p>These toggles are not proof by themselves. System proxy settings primarily cover applications that honor them; TUN covers other traffic included by its routes. Verify actual connections and test results.</p>
+<h3 id="52-identify-the-source-profile">5.2 Identify the source profile</h3>
+<p>Open Profiles and confirm the active card. Duplicate names may identify different profiles; map the selected card to its actual local identifier. Determine whether subscriptions regenerate it and whether scripts or global overrides modify it.</p>
+<p>Preserve existing proxies, other groups, rule ordering, subscription metadata, and credential bytes. Restrict changes to AI groups, explicitly identified AI rules, DNS, and the new provider. Do not replace an entire subscription profile with this guide. Download caches are not a durable editing location.</p>
+<h3 id="53-give-each-group-a-clear-role">5.3 Give each group a clear role</h3>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Members and role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>US-DIRECT</code></td>
+<td>The sole verified fixed gateway without an HK dialer; used for ordinary AI and bootstrap resolution</td>
+</tr>
+<tr>
+<td><code>HK-UPSTREAM</code></td>
+<td>Tested HK candidates from the original subscription provider</td>
+</tr>
+<tr>
+<td><code>US-HK</code></td>
+<td>A clone of the same gateway, retaining authentication and adding the HK dialer</td>
+</tr>
+<tr>
+<td><code>AI</code></td>
+<td>Manual choice between the two verified paths; other candidates require acceptance before admission</td>
+</tr>
+</tbody>
+</table>
+<p>The following shows relationships only; <strong>it is not a complete importable profile</strong>. A trusted local runtime preserves and clones the original gateway entry without reproducing credentials here.</p>
+<pre><code class="language-yaml">proxy-groups:
+  - name: US-DIRECT
+    type: select
+    proxies: [&quot;&lt;existing-fixed-gateway-node&gt;&quot;]
+  - name: HK-UPSTREAM
+    type: select
+    use: [&quot;&lt;original-subscription-provider&gt;&quot;]
+    filter: &quot;&lt;HK-filter-from-your-node-names&gt;&quot;
+    empty-fallback: REJECT
+  - name: US-HK
+    type: select
+    proxies: [&quot;&lt;gateway-clone-with-HK-dialer&gt;&quot;]
+  - name: AI
+    type: select
+    proxies: [US-DIRECT, US-HK]
+</code></pre>
+<p>Add the dialer property to the cloned node:</p>
+<pre><code class="language-yaml"># Preserve the original protocol, address, port, and authentication locally.
+name: &quot;&lt;gateway-clone-with-HK-dialer&gt;&quot;
+dialer-proxy: HK-UPSTREAM
+</code></pre>
+<p>Do not put <code>DIRECT</code>, a broad automatic selector, or unverified subscription nodes in the AI root. Explicitly set <code>empty-fallback: REJECT</code> for dynamically filtered groups. Check actual members after updates rather than trusting the intended YAML. <a href="https://wiki.metacubex.one/en/config/proxy-groups/">Mihomo group fields</a></p>
+<p>If an existing general automatic group includes every proxy, exclude the new HK clone so it does not enter unrelated routing automatically. Preserve that group and its original members.</p>
+<h3 id="54-load-the-local-change">5.4 Load the local change</h3>
+<p>Validate YAML, references, absence of cycles, and absence of unresolved placeholders locally. If there is an authorized safe core-validation command, check compatibility without starting a second core on the same ports.</p>
+<p>In the tested <strong>0.8.98</strong> workflow, opening the active profile card’s menu → More → Override and leaving the override page triggered configuration application. Review that version’s <a href="https://github.com/chen08209/FlClash/blob/v0.8.98/lib/views/profiles/overwrite/overwrite.dart">OverwriteView</a> and <a href="https://github.com/chen08209/FlClash/blob/v0.8.98/lib/common/task.dart">task implementation</a>. This is a version-specific loading path, not a promise about every release.</p>
+<p>Check for unsaved edits first. After application, confirm the active profile, groups, core process, and TUN state. Do not stop or restart the core, turn TUN off, or close all connections. A hot application can still recreate provider-related connections; preserving streams reduces deliberate interference but does not guarantee zero disruption.</p>
+<p>On Proxies, select <code>AI → US-DIRECT</code>. To test the HK chain, first choose a tested member of <code>HK-UPSTREAM</code>, then select <code>AI → US-HK</code>. A latency test proves reachability to its probe target, not the final egress.</p>
+<h2 id="6-dns-without-bootstrap-cycles">6. DNS without bootstrap cycles</h2>
+<p>DNS serves ordinary websites, resolves proxy-node names, and resolves the names of DNS servers. If ordinary DNS requires HK while the HK node itself needs ordinary DNS to resolve its address, startup becomes circular.</p>
+<p>This design gives bootstrap and proxy-name resolution an <strong>independent numeric-address gateway</strong>. It must not depend on the subscription provider or on names that it needs to resolve. Ordinary queries then use the currently selected AI path.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Arrangement in this design</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enable</code> / <code>enhanced-mode</code></td>
+<td>Enable DNS and preserve a working, verified fake-IP configuration</td>
+</tr>
+<tr>
+<td><code>listen</code></td>
+<td>Preserve the working local listener; do not set OS DNS to a local address without an available standard DNS service</td>
+</tr>
+<tr>
+<td><code>respect-rules</code></td>
+<td>On, with explicit DNS group selection to avoid accidental broad-rule matches</td>
+</tr>
+<tr>
+<td><code>prefer-h3</code></td>
+<td>Off; avoid adding an untested UDP / HTTP/3 DNS path</td>
+</tr>
+<tr>
+<td><code>nameserver</code></td>
+<td>A validated numeric-IP DoH URL with <code>#AI</code>, or the URL-encoded real AI group name</td>
+</tr>
+<tr>
+<td><code>default-nameserver</code></td>
+<td>Numeric-IP DoH with independent <code>#US-DIRECT</code></td>
+</tr>
+<tr>
+<td><code>proxy-server-nameserver</code></td>
+<td>The same independent path to resolve subscription proxy hostnames</td>
+</tr>
+<tr>
+<td><code>fallback</code></td>
+<td>Do not add an unverified resolution path</td>
+</tr>
+<tr>
+<td>DNS policies</td>
+<td>Audit policies that bypass the public DNS design; preserve necessary internal split DNS</td>
+</tr>
+<tr>
+<td>System resolver append</td>
+<td>Inspect the client’s effective configuration; do not silently add system DNS to public queries</td>
+</tr>
+<tr>
+<td>Fake-IP range and exceptions</td>
+<td>Preserve working values and LAN exceptions rather than changing the interface</td>
+</tr>
+</tbody>
+</table>
+<p>The form is <code>https://&lt;verified-DoH-IP&gt;/&lt;provider-path&gt;#AI</code>. Obtain the numeric address and path from the chosen resolver’s official information and verify its certificate. Do not skip TLS checks. The fragment must match the group name exactly; encode spaces and non-ASCII names. A missing proxy name can be interpreted as another connection selector, so verify the effective configuration. <a href="https://wiki.metacubex.one/en/config/dns/">Mihomo DNS and bootstrap parameters</a></p>
+<p>Encrypted DNS protects the queries it carries. You still need evidence that the proxy, browser, and OS actually use it. <a href="https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/">Cloudflare DoH explanation</a></p>
+<p>If the fixed gateway requires the subscription to be reachable, it is not an independent bootstrap path. Establish a non-circular authorized resolution path first. If that is unavailable, stop changes that depend on it instead of silently switching to <code>DIRECT</code>.</p>
+<p><code>dns.ipv6: false</code> concerns AAAA responses. The OS may still have cached addresses, explicit IPv6 connections, or other resolvers, so IPv6 routing requires its own check.</p>
+<h2 id="7-acl4ssr-rules-and-subscription-updates">7. ACL4SSR rules and subscription updates</h2>
+<h3 id="put-ai-rules-before-broad-routing">Put AI rules before broad routing</h3>
+<p>Use the public ACL4SSR <a href="https://github.com/ACL4SSR/ACL4SSR/blob/master/Clash/Ruleset/AI.list">AI.list</a>. It is a text rule list, with provider fields <code>type: http</code>, <code>behavior: classical</code>, and <code>format: text</code>. The local plan supplies its URL, refresh interval, and download proxy.</p>
+<pre><code class="language-yaml"># Relationship only: the local plan supplies provider fields and values.
+rules:
+  - RULE-SET,ai,AI
+  # Existing unrelated rules follow in their original order.
+</code></pre>
+<p>Place AI rules before broad Google, overseas, media, <code>DIRECT</code>, and <code>MATCH</code> rules, while retaining required internal exceptions. Identify existing AI rules before redirecting their target; do not globally replace every old policy name.</p>
+<p>Lists cover known hostnames, not all traffic semantically related to AI. Audit the OpenRouter, Windsurf, Codeium, Augment, and self-hosted API-relay hostnames you actually use. Inspect the connected host, matched rule, and selected group. Add necessary local rules. Public lists can include shared service domains and can change scope on refresh; recheck key applications after updates.</p>
+<h3 id="keep-the-original-subscription-as-a-separate-source">Keep the original subscription as a separate source</h3>
+<p>Preserve its URL, update toggle, interval, and metadata. A combined profile uses a separate HTTP proxy-provider referencing the same authorized source. A trusted local runtime retrieves the private URL without sending it to the model. Retain the required User-Agent. Provider intervals use seconds; do not copy an application database’s millisecond value unchanged.</p>
+<p>Use an independent working gateway for provider downloads, avoiding dependence on nodes that have not yet been downloaded. Confirm the response format and actual cached members. <a href="https://wiki.metacubex.one/en/config/proxy-providers/">Mihomo proxy-providers</a></p>
+<p>This preserves the original subscription settings and permits the combined profile’s dynamic members to refresh. It does not automatically merge every subscribed rule or script. Check original subscription metadata and combined-provider membership separately.</p>
+<p>Put residential candidates in an isolated pending-verification group, initially outside the AI root. Check IPv4 / IPv6 egress, stability, WARP / VPN evidence, appropriate ownership databases, and provider information. Several nodes labeled residential returned WARP IPv6 in the case, so their labels were insufficient for admission.</p>
+<h2 id="8-acceptance-collect-evidence-at-every-layer">8. Acceptance: collect evidence at every layer</h2>
+<p>Keep <code>US-DIRECT</code> selected throughout one test run. Then repeat key checks with <code>US-HK</code> and restore the daily default. Record time, versions, selected groups, test targets, and failures rather than keeping only a successful screenshot.</p>
+<h3 id="81-egress-for-each-actual-ai-hostname">8.1 Egress for each actual AI hostname</h3>
+<p>Test Claude, ChatGPT, OpenAI API, and other AI hosts you use separately. Use <code>/cdn-cgi/trace</code> only on hosts that provide it. Otherwise use an authorized actual connection and its FlClash record; an arbitrary API response is not IP evidence.</p>
+<pre><code class="language-sh"># Read variables from your local test plan; use public, credential-free probes.
+curl --fail --show-error --silent --proxy &quot;${LOCAL_PROXY_URL:?set local listener URL}&quot; \
+  --noproxy '' &quot;${PUBLIC_TRACE_URL:?set credential-free probe URL}&quot;
+</code></pre>
+<p>A CLI may ignore system proxy settings. Check ordinary CLI traffic captured by TUN, explicit local-proxy traffic, and the daily AI client’s actual connections separately. In FlClash Connections, inspect new hostnames, matched rules, and the entire group chain. Report only necessary fields.</p>
+<p>For remote gateway resolution, <code>socks5h</code> differs from locally resolving <code>socks5</code>. A trusted runtime must inject any proxy authentication through a constrained interface or stdin configuration; never put passwords in arguments, output, or shell history.</p>
+<p>HTTP or TLS success proves that request. Official account status, quota, and service availability are separate checks, requiring explicit authorization before using account credentials.</p>
+<h3 id="82-extended-dns-checks">8.2 Extended DNS checks</h3>
+<p>Open <a href="https://dnsleaktest.com/">DNSLeakTest</a> in the browser you actually use, run Extended test, and wait for all rounds. Record resolver addresses, organizations, and time without changing nodes or DNS mid-test.</p>
+<p>An unauthorized local ISP resolver calls for investigation of browser DoH, LAN DNS, appended system resolvers, VPNs, and application-specific DNS. Recursive resolvers commonly expose their own addresses; Anycast locations are not necessarily the subscriber’s location. Corroborate results with the effective configuration and connection paths. <a href="https://dnsleaktest.com/how-to-fix-a-dns-leak.html">DNSLeakTest repair principles</a></p>
+<h3 id="83-webrtc-and-ipv6">8.3 WebRTC and IPv6</h3>
+<p>Inspect actual ICE candidates with an independent tool such as <a href="https://browserleaks.com/webrtc">BrowserLeaks WebRTC</a>. Check valid IPv4 / IPv6 addresses and candidate types, distinguishing local addresses, mDNS names, proxy addresses, and ISP addresses. Not every candidate is a public route, and not every numeric substring is an IP address.</p>
+<p>A public candidate belonging to another subscription egress establishes inconsistent paths: you cannot report that all IPs use the AI gateway. An ISP candidate adds a direct-egress concern. No candidates only supports that browser run, not other applications or later network conditions.</p>
+<p>Use an independent IPv6 IP page and local <code>curl -6</code> / route checks. For an explicitly IPv4-only plan, record the unavailable IPv6 path and scope. For IPv6 support, prove the selected route handles it. Absence of AAAA answers is not route acceptance.</p>
+<h3 id="84-read-fuckclaude-check-cc-as-signals">8.4 Read FuckClaude / check-cc as signals</h3>
+<p>These open-source projects help organize language, timezone, Intl, fonts, container, and network signals. They are not Anthropic’s official risk model. A web page cannot inspect complete CLI settings, account status, or every network path. A server-side API sees request headers and network context, which differs from browser sampling. <a href="https://github.com/LinXiaoTao/FuckClaude">FuckClaude</a> · <a href="https://github.com/yacuo/check-cc">check-cc</a></p>
+<p>In the case, FuckClaude displayed 33 / 100, mainly from language, fonts, and Emoji signals, while the deployed check-cc displayed 91%. The latter’s client had candidate-IP parsing and data-merging issues, while different services could sample different egress. A causal link between Intl-field replacement and a displayed mismatch remains an inference. That number is not a 91% suspension probability. Public-source inspection was pinned to <a href="https://github.com/yacuo/check-cc/tree/078e7baa">check-cc revision 078e7baa</a>, with the deployed client inspected through <a href="https://checkcc.org/_next/static/chunks/1hz158h1zwy8v.js">its public script at that time</a>. Public source cannot establish the logic of unpublished deployed APIs or backend services. Record time, revision, signal meanings, and source/deployment differences.</p>
+<p>Do not install an unknown one-click repair program just to reproduce checks. Do not submit account cookies, API keys, conversations, or subscription authentication to a diagnostic page. Current versions may contact IP-intelligence services, STUN, or third-party resources; review them rather than treating “local detection” in a README as proof of no network activity.</p>
+<h3 id="85-classification-stability-and-existing-streams">8.5 Classification, stability, and existing streams</h3>
+<p>Repeated observations support fixed egress over that period. Residential classification needs service information and suitable ownership evidence. Databases may disagree, and <code>Corporate / Business</code> is not a final verdict by itself. Record sources and dates, and use “unconfirmed” when evidence is incomplete.</p>
+<p>Intermittent TLS failures remain unresolved failures. Compare DNS paths, remote resolution, upstream selection, effective settings, and new connections. Do not hide the cause by pinning CDN IPs or disabling certificate checks.</p>
+<p>Established AI streams can retain their previous egress. With automatic cleanup off, wait for natural reconnects or let the user reconnect the affected application at an acceptable time. You cannot promise both untouched existing connections and immediate replacement of every current path.</p>
+<h2 id="9-troubleshooting-and-recovery">9. Troubleshooting and recovery</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Next check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HK latency works but AI fails</td>
+<td>Authorized source, final gateway, node resolution, and actual chain; a tested HK selection affects new connections</td>
+</tr>
+<tr>
+<td>Only remote <code>socks5h</code> resolution works</td>
+<td>Compare local, TUN, DoH, and cached resolution; inspect bootstrap dependencies instead of pinning CDN addresses</td>
+</tr>
+<tr>
+<td>AI matches Google / a broad overseas group</td>
+<td>Ordering or missing hostnames; inspect the actual matched rule</td>
+</tr>
+<tr>
+<td>YAML changed but behavior did not</td>
+<td>Active profile, subscription replacement, DNS override, and version-specific loading</td>
+</tr>
+<tr>
+<td>Subscription group empty</td>
+<td>Download, User-Agent, response format, and filter; retain rejection rather than direct fallback</td>
+</tr>
+<tr>
+<td>Web IP and STUN IP differ</td>
+<td>Separate UDP / WebRTC policy and call testing; TCP acceptance does not remove the difference</td>
+</tr>
+<tr>
+<td>DNS location differs from egress</td>
+<td>Resolver organization, Anycast, and actual path rather than location alone</td>
+</tr>
+<tr>
+<td>A restart is required under a continuity constraint</td>
+<td>Stop restart-dependent actions, explain the client limitation, and schedule a maintenance window</td>
+</tr>
+</tbody>
+</table>
+<p>Use recovery material from the same local patch. Check that the source has not changed through subscriptions or another operator. If it has, create a new merge plan rather than replacing it wholesale with old data. Load through the safe current-version path and check connectivity, previous routing, and subscriptions again.</p>
+<h2 id="10-let-different-agents-follow-the-same-workflow">10. Let different agents follow the same workflow</h2>
+<p>The <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md">Skill</a> is a readable Markdown operating protocol. A tool with a Skill registry can install the directory; another agent can read it directly. It requires tools and permissions, does not depend on one model, and does not replace administrator authorization.</p>
+<p>Create a <strong>private local plan</strong> from the <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/templates/network-plan.example.json">template</a>, following the <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/references/plan-schema.md">plan schema</a>. Profile paths, names, DNS services, rule sources, and intervals come from that plan. Reviewed local runtime code preserves and handles credentials.</p>
+<p>Supply <code>dns.resolver_paths</code> explicitly and retain confirmed LAN / VPN policies; do not erase existing policies by copying the template's empty values. Private plaintext resolvers are permitted only for local namespaces declared in <code>local_dns_policy_keys</code>. Resolve an unclear scope during audit before applying.</p>
+<pre><code class="language-sh"># Set placeholder variables locally; do not store the private plan or receipt here.
+python3 &quot;${SKILL_DIR:?set Skill directory}/scripts/profile_patch.py&quot; &quot;${PRIVATE_PLAN:?set private plan path}&quot;
+python3 &quot;${SKILL_DIR:?set Skill directory}/scripts/profile_patch.py&quot; &quot;${PRIVATE_PLAN:?set private plan path}&quot; --apply
+python3 &quot;${SKILL_DIR:?set Skill directory}/scripts/profile_patch.py&quot; &quot;${PRIVATE_PLAN:?set private plan path}&quot; --rollback
+</code></pre>
+<p>The first command writes a safe review summary and local receipt. The second requires authorization for this change and a receipt bound to the source and plan. Rollback is allowed only while the source still equals this patch’s output. The helper writes the source only: <strong>it does not load FlClash, stop a core, or operate network interfaces</strong>. The agent must perform loading and acceptance using section 5 and current-client capability. See the <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/references/agent-workflow.md">agent workflow</a>.</p>
+<p>Example task:</p>
+<blockquote>
+<p>Read the complete <code>skills/flclash-ai-privacy/SKILL.md</code>. Audit my explicitly identified profile and create a reviewable local patch from my private plan. Fix AI egress only; preserve other routing, subscriptions, LAN, and other VPNs. Do not expose credentials, stop the core or TUN, or close existing streams. Report changes and unverified conditions first. When this change is already authorized, apply it and separately check TCP, DNS, WebRTC, IPv6, subscriptions, and retained connections. Do not claim a pass for an untested layer.</p>
+</blockquote>
+<p>An agent without application-control capability provides verified manual steps and waits for operator evidence. It must not invent changed settings. If a tool denies an action, explain the action and reason and honor that boundary.</p>
+<h2 id="11-windows-and-linux-branches">11. Windows and Linux branches</h2>
+<p>These platforms were not tested in this case; macOS results do not transfer to them.</p>
+<p>On Windows, audit interface DNS, system proxy, VPNs, and firewall rules. Mihomo’s <code>strict-route</code> can address multi-interface DNS behavior, but can interfere with other virtual networking software. Enabling it is a routing change requiring evaluation. <a href="https://wiki.metacubex.one/en/config/inbound/tun/#strict-route">Mihomo Windows TUN notes</a></p>
+<p>On Linux, identify the DNS owner among NetworkManager, systemd-resolved, and other managers. Check split DNS and application proxy settings. <code>auto-redirect</code> is Linux-specific; do not treat it as a macOS switch or copy firewall-rewriting commands into a live remote session. <a href="https://wiki.metacubex.one/en/config/inbound/tun/#auto-redirect">Mihomo Linux TUN notes</a></p>
+<p>Repeat the same independent acceptance checks. Under a continuity constraint, prefer existing running entry points; schedule first-time TUN creation or interface changes separately.</p>
+<h2 id="12-publication-and-maintenance">12. Publication and maintenance</h2>
+<p>After a client, subscription, rule, browser, or network change, repeat affected checks. Keep recent evidence for key AI new connections, extended DNS, WebRTC, and IPv6, with outstanding failures marked.</p>
+<p>Publish general steps, placeholders, and redacted conclusions only. Keep private profiles, subscription URLs, authentication, personal public IPs, internal domains, account pages, and device paths local. Do not market the guide as guaranteed residential service, uniform egress for every flow, or protection from suspension.</p>
+<p>Project: <a href="https://github.com/iPythoning/goglobal-infra">iPythoning/goglobal-infra</a>. Related: <a href="https://shop.paibao.ai">shop.paibao.ai</a>. The related link does not change acceptance criteria; purchased nodes still need independent verification.</p></article></main>
+<footer><p>GoGlobal Infra · <a href="https://github.com/iPythoning/goglobal-infra">Source &amp; updates</a> · <a href="https://shop.paibao.ai">Related: shop.paibao.ai</a></p>
+<p>Verify each layer. A fixed address alone does not prove residential access or account safety.</p></footer></body></html>

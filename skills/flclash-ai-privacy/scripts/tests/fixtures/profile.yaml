@@ -1,0 +1,68 @@
+# SYNTHETIC ONLY: documentation addresses, fake credentials, no live service.
+mode: rule
+mixed-port: 18080
+proxies:
+- name: StaticGateway
+  type: socks5
+  server: 192.0.2.10
+  port: 11080
+  username: SYNTHETIC_USER
+  password: SYNTHETIC_PROXY_PASSWORD
+  udp: false
+- name: ExistingOtherNode
+  type: socks5
+  server: hk.example.invalid
+  port: 18080
+proxy-providers:
+  AirportOriginal:
+    type: http
+    url: https://subscription.example.invalid/feed?token=SYNTHETIC_PROVIDER_TOKEN
+    path: ./private-provider-cache.yaml
+    interval: 86400
+    proxy: StaticGateway
+proxy-groups:
+- name: ExistingHK
+  type: select
+  use:
+  - AirportOriginal
+  filter: HongKong
+  empty-fallback: REJECT
+- name: ExistingAuto
+  type: url-test
+  include-all-proxies: true
+  exclude-filter: ^OriginalExcluded$
+  url: https://health.example.invalid/status
+  interval: 300
+- name: ExistingAI
+  type: select
+  proxies:
+  - ExistingOtherNode
+rule-providers:
+  OriginalMedia:
+    type: http
+    behavior: classical
+    format: text
+    url: https://rules.example.invalid/media.list?token=SYNTHETIC_MEDIA_TOKEN
+    path: ./media-cache.list
+    interval: 86400
+rules:
+- DOMAIN-SUFFIX,ai.example.invalid,ExistingOtherNode
+- DOMAIN-SUFFIX,local.example.invalid,DIRECT
+- RULE-SET,OriginalMedia,ExistingAuto
+- MATCH,ExistingAuto
+dns:
+  enable: true
+  listen: 127.0.0.1:15353
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+  - '*.lan'
+  respect-rules: false
+  nameserver:
+  - https://old-resolver.example.invalid/dns-query
+tun:
+  enable: true
+  device: SyntheticTun
+  dns-hijack:
+  - any:53

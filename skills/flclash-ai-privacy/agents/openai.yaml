@@ -1,0 +1,4 @@
+interface:
+  display_name: "FlClash AI Privacy"
+  short_description: "Plan and verify AI egress and DNS privacy safely"
+  default_prompt: "Use $flclash-ai-privacy to review my current FlClash network and prepare a scoped AI routing and DNS privacy plan."

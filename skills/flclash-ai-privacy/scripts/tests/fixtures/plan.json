@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "static_node_name": "StaticGateway",
+  "group_names": {"ai": "ExistingAI", "direct": "StaticDirect", "chain": "StaticViaHK"},
+  "default_exit_name": "StaticDirect",
+  "chain": {"node_name": "StaticHKClone", "dialer_proxy_name": "ExistingHK"},
+  "additional_verified_exit_names": [],
+  "dns": {
+    "main_doh_urls": ["https://resolver.example.invalid/dns-query"],
+    "bootstrap_doh_urls": ["https://192.0.2.53/dns-query"],
+    "local_dns_policy_keys": [],
+    "resolver_paths": {
+      "fallback": [], "nameserver-policy": {}, "direct-nameserver": [],
+      "proxy-server-nameserver-policy": {}
+    },
+    "settings": {"enable": true, "respect-rules": true, "prefer-h3": false}
+  },
+  "ai_rule_provider": {
+    "name": "NewAIRules",
+    "specification": {
+      "type": "http", "behavior": "classical", "format": "text",
+      "url": "https://rules.example.invalid/ai.list", "path": "./synthetic-ai-cache.list",
+      "interval": 86400, "proxy": "StaticDirect"
+    }
+  },
+  "retarget_ai_rules": ["DOMAIN-SUFFIX,ai.example.invalid,ExistingOtherNode"],
+  "additional_ai_domain_suffixes": ["additional-ai.example.invalid"]
+}

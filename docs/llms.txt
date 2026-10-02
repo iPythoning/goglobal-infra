@@ -1,0 +1,7 @@
+# GoGlobal Infra
+
+可核验的出海基础设施教程与工具。首期专题包含电脑设置、FlClash AI 分流、DNS 隐私和可移植智能体 Skill。
+
+- [FlClash 全链路教程：AI 固定出口、DNS 隐私与智能体 Skill](https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html)
+- [FlClash AI Routing and DNS Privacy: A Full-Path Guide](https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html)
+- [Agent Skill](https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md)

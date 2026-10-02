@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+*.local.json
+*.local.yaml
+*.private.yaml
+*.rollback.json
+private/
+__pycache__/
+*.py[cod]
+.DS_Store
