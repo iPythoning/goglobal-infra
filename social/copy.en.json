@@ -20,5 +20,6 @@
   "pinterest_description": "Detailed computer and FlClash settings, direct and HK upstream paths, encrypted DNS, subscription preservation, independent leak checks and a portable agent Skill. Guide: https://ipythoning.github.io/goglobal-infra/ Related services: https://shop.paibao.ai",
   "video_title": "FlClash: check AI egress, DNS, WebRTC and IPv6 separately",
   "video_description": "A practical FlClash guide with computer settings, direct and optional HK upstream routing, encrypted DNS, subscription preservation and a portable agent Skill. Tests should report partial results honestly; static egress does not establish residential access or account safety.\nGuide: https://ipythoning.github.io/goglobal-infra/\nRelated services: https://shop.paibao.ai",
-  "website": "https://ipythoning.github.io/goglobal-infra/"
+  "website": "https://ipythoning.github.io/goglobal-infra/",
+  "x_launch_zh": "新建了 GoGlobal Infra，整理可核验的出海基础设施教程。\n\n首篇：电脑设置 + FlClash AI 分流、直连/HK 链路、加密 DNS、WebRTC/IPv6 检测，以及可移植的智能体 Skill。\n固定 IP 不等于住宅属性，检测分数也不等于账号安全。\n\n教程/Skill：https://ipythoning.github.io/goglobal-infra/\n相关服务：https://shop.paibao.ai"
 }

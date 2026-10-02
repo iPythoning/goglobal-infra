@@ -1,10 +1,9 @@
 # Work status
 
-- Scope: GoGlobal Infra content navigation / SEO site; first topic is a bilingual FlClash AI routing and DNS privacy guide with a portable Skill.
-- Validation baseline: separate TCP egress, DNS, WebRTC, IPv6 and residential classification; retain honest partial results.
-- Publication excludes private configurations, personal network addresses and credentials.
-- Published main e7b36d9: bilingual guides, 3 static pages built from site.json, Skill review/apply/rollback helper, platform copy and shop.paibao.ai links.
-- Validation: 20 synthetic helper tests, Skill lint, Python review, code review, whitespace checks and redacted secret/private-data scans passed; live site verification remains.
-- External state: iPythoning/goglobal-infra is public; Pages built successfully from main /docs at https://ipythoning.github.io/goglobal-infra/. Postiz API returned 401; X browser session is available.
-- Live check found wrapped inline card link center outside clickable text; reviewed CSS now makes the title a block target. No network configuration changes during publication.
-- Next: verify the deployed card links and bilingual pages, then publish X; other checked platforms need login or human verification.
+- Scope: GoGlobal Infra content navigation / SEO site; first topic is bilingual FlClash AI routing, DNS privacy and a portable Skill, with shop.paibao.ai links.
+- Main release: initial e7b36d9; card-target fix 366c352. Public examples exclude real case IPs, subscription URLs, credentials and device paths.
+- Validation: 20 synthetic helper tests, scoped Skill lint, Python/code reviews, whitespace and redacted secret/private-data scans passed.
+- Live Pages: https://ipythoning.github.io/goglobal-infra/; Chinese card click, English language switch and 390px layout passed, no observed page exceptions. Ego screenshot capture timed out; no screenshot archive claimed.
+- Published X: https://x.com/morganfan_muyan/status/2105919381259911600; content and both links verified on the account profile. No core/TUN changes during publication.
+- Remaining distribution: Postiz API returned 401; LinkedIn/Facebook/Instagram/Threads/Bluesky/YouTube/TikTok/Pinterest need login; Reddit requires human verification. Platform copy is prepared, those posts are not published.
+- Next: restore the authorized publication credential/session, inventory its accounts and publish the remaining eligible platforms; do not duplicate the verified X post.
