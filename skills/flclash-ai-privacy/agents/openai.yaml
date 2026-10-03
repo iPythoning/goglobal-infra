@@ -1,4 +1,4 @@
 interface:
-  display_name: "FlClash AI Privacy"
-  short_description: "Plan and verify AI egress and DNS privacy safely"
-  default_prompt: "Use $flclash-ai-privacy to review my current FlClash network and prepare a scoped AI routing and DNS privacy plan."
+  display_name: "Clash Family AI Routing & Privacy"
+  short_description: "Adapt AI routing to Clash, Premium and Mihomo cores"
+  default_prompt: "Use $flclash-ai-privacy to identify my Clash-family client and core, then prepare a compatible AI routing and privacy plan."

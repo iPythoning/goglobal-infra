@@ -1,5 +1,7 @@
 # Local helper contract
 
+This contract is Mihomo-specific. The script does not discover the running core and must not be used as a generic Clash/Premium adapter. Verify `dialer-proxy` when chaining, DNS group fragments, `respect-rules`, resolver fields, `format: text`, provider download `proxy`, and `empty-fallback: REJECT` against the exact installed version. Even with `chain: null`, other emitted fields still require these checks. For portable routing use [clash-compatibility.md](clash-compatibility.md) and its baseline template instead. Chinese-AI DIRECT precedence is outside this helper's existing JSON contract.
+
 Use the bundled [network-plan.example.json](../templates/network-plan.example.json) as a structure template. Its angle-bracket strings are deliberately invalid until replaced locally. There are no endpoint, port, refresh or profile-path defaults in the helper.
 
 The caller supplies a JSON object with these fields:

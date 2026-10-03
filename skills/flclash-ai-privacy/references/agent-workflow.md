@@ -1,10 +1,12 @@
 # Agent execution and evidence
 
+Start with [clash-compatibility.md](clash-compatibility.md). This workflow applies across clients; the optional DNS/chaining recipe and Python helper below are Mihomo-specific. The portable baseline preserves existing DNS and uses supported explicit rules/groups. A missing advanced capability is not permission to change the core or copy Mihomo fields into a legacy configuration.
+
 ## Discovery and concrete plan
 
 Ask for the active profile and traffic scope only when discovery cannot determine them. Use the existing user authorization and preferences. Read local instructions before opening any source file. Credential-bearing files must be consumed by a reviewed local runtime, not dumped into an agent's prompt. Expose only approved node/group names, feature states and counts.
 
-Record OS/browser/client/core versions, profile type, provider ownership and refresh behavior. Establish which layer owns DNS: system DNS, browser Secure DNS, FlClash source DNS, a global override, and TUN interception are different controls. Identify LAN, corporate VPN and split-DNS requirements before proposing a change. Inspect ongoing connections without displaying their sensitive URLs or request headers.
+Record OS/browser/client/core versions, profile type, provider ownership and refresh behavior. Establish which layer owns DNS: system DNS, browser Secure DNS, client source DNS, a global override, and TUN interception are different controls. Identify LAN, corporate VPN and split-DNS requirements before proposing a change. Inspect ongoing connections without displaying their sensitive URLs or request headers.
 
 Use official documentation and source corresponding to the installed version to confirm:
 
@@ -19,7 +21,7 @@ Present a concrete plan with: target source, AI rule/group changes, direct/chain
 
 ## Configuration choices
 
-Use the user's existing numerical gateway as the independent bootstrap exit. Test the gateway separately from its public exit; a gateway can return a different public IP. Some upstreams authorize the intermediary IP, so the HK entry must reach that authorized gateway and the final HTTP egress must still match the intended static endpoint.
+For the optional Mihomo DNS/chaining recipe, use the user's existing numerical gateway as the independent bootstrap exit. Test the gateway separately from its public exit; a gateway can return a different public IP. Some upstreams authorize the intermediary IP, so the HK entry must reach that authorized gateway and the final HTTP egress must still match the intended static endpoint. The portable baseline does not require HK chaining or this DNS recipe.
 
 Keep a verified direct choice and an optional HK chain choice. Never select a node as residential based only on “US/住宅/home” in its name. Test every offered choice; a WARP, datacenter or frequently rotating exit can fail the user's intended qualification while still functioning as a proxy.
 
@@ -27,9 +29,9 @@ Preserve the original airport subscription's URL, refresh interval and automatic
 
 Use [ACL4SSR's AI rule list](https://github.com/ACL4SSR/ACL4SSR/blob/master/Clash/Ruleset/AI.list) if the user selects that source; record the date/revision and completeness limitations. Do not assume a subscription enumerates every overseas AI domain or that a general Google rule should send every Google service to AI. Add only approved missing AI suffixes before broader rules.
 
-Check the resolver's numeric-host certificate support. Route main encrypted DNS explicitly through the AI group and bootstrap/proxy-hostname DNS through the independent direct group. Remove or consciously preserve every resolver path that can bypass this intended route, including client global overrides. An all-residential AI requirement does not automatically authorize routing other sites' TCP traffic through the same exit.
+When the Mihomo DNS recipe is selected and supported, check the resolver's numeric-host certificate support. Route main encrypted DNS explicitly through the AI group and bootstrap/proxy-hostname DNS through the independent direct group. Remove or consciously preserve every resolver path that can bypass this intended route, including client global overrides. Otherwise retain existing DNS and document its limits. An all-residential AI requirement does not automatically authorize routing other sites' TCP traffic through the same exit.
 
-At the browser layer, a user can choose to disable Secure DNS so intercepted system DNS follows FlClash. A browser security policy blocking access to its settings is a real boundary: explain it and let the user use the native settings; do not work around the block via another automation surface. A confirmation is evidence of user action, not a programmatic verification.
+At the browser layer, a user can choose to disable Secure DNS so intercepted system DNS follows the configured network client. A browser security policy blocking access to its settings is a real boundary: explain it and let the user use the native settings; do not work around the block via another automation surface. A confirmation is evidence of user action, not a programmatic verification.
 
 Do not blindly clear system DNS, change Wi-Fi/router settings or disable IPv6. Test UDP and TCP DNS interception on the active interface; system resolver displays alone do not show the actual upstream path. Preserve VPN/corporate split-DNS entries and LAN names. If the requested no-disconnection condition cannot be met by verified available controls, complete the plan and report that dependent application is pending.
 

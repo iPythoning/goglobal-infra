@@ -1,4 +1,5 @@
 # 脱敏的增量政策参考，不是可直接导入的完整 Mihomo 配置。
+# Mihomo 专用：MRS 必须经当前内核验证；传统 Clash/Premium 使用 routing-policy.portable.yaml。
 # 所有 <...> 必须由受信任本地运行时按现有配置填写；缺失时停止。
 # 不包含节点 server/port/密码/UUID、订阅 URL、账号、设备路径或真实 IP。
 # 不整段覆盖 proxy-groups / rule-providers / rules；保留原订阅、DNS、TUN。

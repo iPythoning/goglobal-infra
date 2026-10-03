@@ -1,6 +1,11 @@
 # Work status
 
 - Scope: GoGlobal Infra content navigation / SEO site; first topic is bilingual FlClash AI routing, DNS privacy and a portable Skill, with shop.paibao.ai links.
+- 2026-10-03 Clash-family extension: retained the flclash-ai-privacy install path/name; added a capability/client matrix and a portable inline-rule fragment. MRS, dialer chaining, advanced DNS and the unchanged Python helper stay explicitly Mihomo-specific.
+- Policy remains Chinese AI/mainland DIRECT, foreign AI verified residential direct, other traffic on existing routing/automatic members; documented how Rule mode and proxy-page selections interact. No live credential profile, client or network setting was read/changed.
+- Validation: scoped lint/skill-creator checks, nine-file privacy/link/YAML/priority checks, isolated three-page site build/navigation checks and Mihomo 1.19.32 synthetic configuration-test passed; code/config review approved. No legacy or additional client/device live compatibility is claimed.
+- Distribution target: v1.1.0 ZIP + SHA256 for this extension. Synced the three upstream Chinese tutorial edits before task edits, without changing site sources/generated pages or helper code; earlier releases remain historical.
+- Next for use: discover the target core and supported exit protocol, expand approved category sources when RULE-SET is unavailable, verify the durable override/load workflow and fresh request paths. Unsupported advanced features require a separate plan, not automatic core migration.
 - 2026-10-03 Skill update: added a redacted policy fragment and Chinese case reference: Chinese AI/mainland DIRECT, foreign AI residential direct, ordinary traffic through the existing mixed-membership URLTest group; HK chaining stays optional.
 - This update reads no live credential-bearing profile and changes no client/core/network settings. The Python helper is unchanged; its JSON contract does not implement the new routing fragment. Account eligibility, DNS/WebRTC/IPv6 and CI deployment remain separate or unverified conclusions.
 - Validation: scoped Skill lint, skill-creator validation, redacted YAML parse/priority checks, independent content/security reviews and whitespace checks passed. The three-page site rebuilt without generated changes using the already matching Markdown requirement.

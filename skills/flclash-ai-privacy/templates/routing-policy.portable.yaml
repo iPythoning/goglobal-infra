@@ -1,0 +1,49 @@
+# Clash 家族通用增量模板，不是完整可导入配置；先核实实际内核和支持的节点协议。
+# 不依赖 MRS / RULE-SET / dialer-proxy / empty-fallback / 高级 DNS / TUN。
+# 所有 <...> 由受信任本地运行时填写；独立规则占位项须展开成受支持的完整规则列表。
+# 不含节点 server/port/凭据/订阅。保留原 DNS、入站、TUN、机场节点与订阅。
+# 仅做局部合并：不得整段覆盖原 proxy-groups / rules。
+
+proxy-groups:
+  - name: "<FOREIGN_AI_GROUP>"
+    type: select
+    proxies:
+      - "<EXISTING_VERIFIED_RESIDENTIAL_DIRECT_NODE_OR_GROUP>"
+      # 确认引用无环、非空，且所有间接候选都是用户批准的海外 AI 出口。
+      # 不自动回落到 DIRECT、COMPATIBLE 或普通自动组。
+
+  - name: "<EXISTING_ORDINARY_MAIN_GROUP>"
+    type: select
+    proxies:
+      - "<EXISTING_GENERAL_AUTO_GROUP>"
+      # 保留该主组完整既有成员。本模板不重建自动组、不改变其成员/测速参数。
+      # 必须在客户端核实主组当前选中了既有自动组，源文件排列不能保证当前选择。
+
+rules:
+  # 保留原来的前置 REJECT、安全、局域网/VPN 规则与其他优先例外。
+  # 将批准的类别源转换为当前内核支持的内联规则；记录来源、修订与覆盖限制。
+  - "<EXPANDED_APPROVED_CHINESE_AI_INLINE_RULES_TARGET_DIRECT>"
+  # 按供应商政策分类；以下是原案例例外，不代表完整中国 AI 清单。
+  - "DOMAIN-SUFFIX,kimi.ai,DIRECT"
+  - "DOMAIN-SUFFIX,moonshot.ai,DIRECT"
+  - "DOMAIN-SUFFIX,dashscope.aliyuncs.com,DIRECT"
+  - "DOMAIN-SUFFIX,dashscope-intl.aliyuncs.com,DIRECT"
+  - "DOMAIN-SUFFIX,dashscope-us.aliyuncs.com,DIRECT"
+  - "DOMAIN-SUFFIX,maas.aliyuncs.com,DIRECT"
+
+  # 中国 AI 优先于 broad AI；海外 AI 优先于 broad China/GeoIP。
+  - "<EXPANDED_APPROVED_FOREIGN_AI_INLINE_RULES_TARGET_FOREIGN_AI_GROUP>"
+  - "DOMAIN-SUFFIX,anthropic.com,<FOREIGN_AI_GROUP>"
+  - "DOMAIN-SUFFIX,claude.ai,<FOREIGN_AI_GROUP>"
+  # 其他已批准海外 AI 域名在上方占位项展开，不凭空把全 Google 等归为 AI。
+
+  - "<EXPANDED_APPROVED_MAINLAND_DOMAIN_INLINE_RULES_TARGET_DIRECT>"
+  - "DOMAIN-SUFFIX,douyin.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyincdn.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyinpic.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyinstatic.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyinvod.com,DIRECT"
+  - "<EXPANDED_APPROVED_MAINLAND_IP_INLINE_RULES_TARGET_DIRECT_NO_RESOLVE>"
+  # 保留原剩余规则及最后唯一 MATCH。MATCH 仍指向原主组；不另造兜底。
+  # IP 规则需按当前内核验证 IP-CIDR/IP-CIDR6 与 no-resolve；GeoIP 数据可缺失/过期。
+  # 泛中国域名表也会包含海外 AI 域名，因此不能置于海外 AI 规则之前。
