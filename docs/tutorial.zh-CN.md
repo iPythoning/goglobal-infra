@@ -8,8 +8,8 @@
 
 先看 Claude 检测结果
 目前我的 Claude 防封检测指数：
-1.https://ippure.com/claude给我 22 分，仅剩中文字体和 Emoji 渲染风格；
-2.https://checkcc.org给到我58%，一路从 84%降下来，我还在等他家的一键防封工具
+1.https://ippure.com/claude 给我 22 分，仅剩中文字体和 Emoji 渲染风格；
+2.https://checkcc.org 给到我58%，一路从 84%降下来，我还在等他家的一键防封工具
 <img width="1620" height="1452" alt="image" src="https://github.com/user-attachments/assets/a056800b-f457-45be-ae19-de97c7d612f8" />
 <img width="720" height="1160" alt="image" src="https://github.com/user-attachments/assets/4c7ff651-e6da-417a-9b25-25e1fee3d340" />
 
