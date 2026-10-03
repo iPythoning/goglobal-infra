@@ -1,0 +1,100 @@
+# 脱敏的增量政策参考，不是可直接导入的完整 Mihomo 配置。
+# 所有 <...> 必须由受信任本地运行时按现有配置填写；缺失时停止。
+# 不包含节点 server/port/密码/UUID、订阅 URL、账号、设备路径或真实 IP。
+# 不整段覆盖 proxy-groups / rule-providers / rules；保留原订阅、DNS、TUN。
+# 当前策略：海外 AI 固定住宅直连；中国 AI DIRECT；普通海外流量选现有 URLTest。
+# 这些组定义表达目标关系，具体已有成员和参数须在私有配置中核对。
+
+proxy-groups:
+  - name: "<FOREIGN_AI_GROUP>"
+    type: select
+    proxies:
+      - "<EXISTING_RESIDENTIAL_DIRECT_GROUP>"
+      # 可选链式出口由独立方案提供，不能自动回落到 DIRECT/机场普通节点。
+
+  - name: "<EXISTING_ORDINARY_MAIN_GROUP>"
+    type: select
+    proxies:
+      - "<EXISTING_GENERAL_AUTO_GROUP>"
+      # 合并时保留该主组其余既有候选；本案例只改变客户端选择。
+
+  - name: "<EXISTING_GENERAL_AUTO_GROUP>"
+    type: url-test
+    proxies:
+      - "<EXISTING_AIRPORT_CANDIDATE_A>"
+      - "<EXISTING_AIRPORT_CANDIDATE_B>"
+      - "<EXISTING_STATIC_RESIDENTIAL_NODE>"
+      # 本案例既有组含住宅候选；以上仅表达成员种类，保留完整已有成员列表。
+    url: "<PRESERVED_PUBLIC_HEALTH_CHECK_URL>"
+    interval: "<PRESERVED_POSITIVE_HEALTH_CHECK_INTERVAL_SECONDS>"
+    tolerance: "<PRESERVED_NONNEGATIVE_URLTEST_TOLERANCE_MS>"
+
+rule-providers:
+  "<PRIVATE_DOMAIN_PROVIDER>":
+    type: http
+    behavior: domain
+    format: mrs
+    url: "<VERIFIED_PUBLIC_PRIVATE_DOMAIN_MRS_URL>"
+    path: "<PRIVATE_DOMAIN_CACHE_PATH>"
+    interval: "<RULE_REFRESH_INTERVAL_SECONDS>"
+  "<PRIVATE_IP_PROVIDER>":
+    type: http
+    behavior: ipcidr
+    format: mrs
+    url: "<VERIFIED_PUBLIC_PRIVATE_IP_MRS_URL>"
+    path: "<PRIVATE_IP_CACHE_PATH>"
+    interval: "<RULE_REFRESH_INTERVAL_SECONDS>"
+  "<CHINESE_AI_PROVIDER>":
+    type: http
+    behavior: domain
+    format: mrs
+    url: "<VERIFIED_PUBLIC_CATEGORY_AI_CN_MRS_URL>"
+    path: "<CHINESE_AI_CACHE_PATH>"
+    interval: "<RULE_REFRESH_INTERVAL_SECONDS>"
+  "<FOREIGN_AI_PROVIDER>":
+    type: http
+    behavior: domain
+    format: mrs
+    url: "<VERIFIED_PUBLIC_CATEGORY_AI_NOT_CN_MRS_URL>"
+    path: "<FOREIGN_AI_CACHE_PATH>"
+    interval: "<RULE_REFRESH_INTERVAL_SECONDS>"
+  "<CHINA_DOMAIN_PROVIDER>":
+    type: http
+    behavior: domain
+    format: mrs
+    url: "<VERIFIED_PUBLIC_CHINA_DOMAIN_MRS_URL>"
+    path: "<CHINA_DOMAIN_CACHE_PATH>"
+    interval: "<RULE_REFRESH_INTERVAL_SECONDS>"
+  "<CHINA_IP_PROVIDER>":
+    type: http
+    behavior: ipcidr
+    format: mrs
+    url: "<VERIFIED_PUBLIC_CHINA_IP_MRS_URL>"
+    path: "<CHINA_IP_CACHE_PATH>"
+    interval: "<RULE_REFRESH_INTERVAL_SECONDS>"
+
+rules:
+  # 前面保留既有 REJECT、安全与私网规则；这里只列本次新增规则的相对顺序。
+  - "RULE-SET,<PRIVATE_DOMAIN_PROVIDER>,DIRECT"
+  - "RULE-SET,<PRIVATE_IP_PROVIDER>,DIRECT,no-resolve"
+
+  - "RULE-SET,<CHINESE_AI_PROVIDER>,DIRECT"
+  # 按供应商来源的显式例外；.ai / intl / us 不代表服务器位于中国。
+  - "DOMAIN-SUFFIX,kimi.ai,DIRECT"
+  - "DOMAIN-SUFFIX,moonshot.ai,DIRECT"
+  - "DOMAIN-SUFFIX,dashscope.aliyuncs.com,DIRECT"
+  - "DOMAIN-SUFFIX,dashscope-intl.aliyuncs.com,DIRECT"
+  - "DOMAIN-SUFFIX,dashscope-us.aliyuncs.com,DIRECT"
+  - "DOMAIN-SUFFIX,maas.aliyuncs.com,DIRECT"
+
+  - "RULE-SET,<PRESERVED_EXISTING_AI_PROVIDER>,<FOREIGN_AI_GROUP>"
+  - "RULE-SET,<FOREIGN_AI_PROVIDER>,<FOREIGN_AI_GROUP>"
+
+  - "RULE-SET,<CHINA_DOMAIN_PROVIDER>,DIRECT"
+  - "DOMAIN-SUFFIX,douyin.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyincdn.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyinpic.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyinstatic.com,DIRECT"
+  - "DOMAIN-SUFFIX,douyinvod.com,DIRECT"
+  - "RULE-SET,<CHINA_IP_PROVIDER>,DIRECT,no-resolve"
+  # 然后保留其余原规则，最后保留原来的单个 MATCH；本片段不另加 MATCH。
