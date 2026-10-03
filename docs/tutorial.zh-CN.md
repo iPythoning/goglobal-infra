@@ -6,11 +6,11 @@
 
 实机基线是 macOS、FlClash **0.8.98**；公开资料核验日期为 **2026-10-02 UTC**。不同客户端版本可能改变菜单和加载行为。Windows、Linux 小节是需要重新验收的平台分支。本案例没有达到所有协议都使用同一个已确认住宅出口的完整状态，相关限制会在验收部分说明。
 
-先看 Claude 检测结果
-目前我的 Claude 防封检测指数：
-1.https://ippure.com/claude 给我 22 分，仅剩中文字体和 Emoji 渲染风格；
-2.https://checkcc.org 给到我58%，一路从 84%降下来，我还在等他家的一键防封工具
+先看 Claude 检测结果  
+目前我的 Claude 防封检测指数：  
+1.https://ippure.com/claude 给我 22 分，仅剩中文字体和 Emoji 渲染风格；  
 <img width="1620" height="1452" alt="image" src="https://github.com/user-attachments/assets/a056800b-f457-45be-ae19-de97c7d612f8" />
+2.https://checkcc.org 给到我58%，一路从 84%降下来，我还在等他家的一键防封工具
 <img width="720" height="1160" alt="image" src="https://github.com/user-attachments/assets/4c7ff651-e6da-417a-9b25-25e1fee3d340" />
 
 ## 1. 先定义“成功”
