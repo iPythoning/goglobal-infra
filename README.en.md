@@ -1,16 +1,17 @@
 # GoGlobal Infra: Practical Infrastructure Guides and Resources
 
-[Content navigation site](https://ipythoning.github.io/goglobal-infra/) · [中文](README.md) · [English tutorial](docs/tutorial.en.md) · [中文完整教程](docs/tutorial.zh-CN.md)
+[Content navigation site](https://ipythoning.github.io/goglobal-infra/) · [中文](README.md) · [Beginner guide](docs/tutorial.en.md) · [中文完整教程](docs/tutorial.zh-CN.md)
 
 GoGlobal Infra is a content hub for practical, verifiable infrastructure guides and tools. Its first topic is **AI routing, fixed egress, and DNS privacy across the Clash family**: identify the client and core, configure routing for each service, verify egress and DNS independently, and preserve existing routing and subscription updates for other sites.
 
-The first topic includes computer settings, detailed FlClash steps, independent acceptance checks, and a configuration Skill that different local agents can read. The Skill now covers a Clash-family adaptation workflow while retaining the existing `skills/flclash-ai-privacy/` path and name. **macOS / FlClash 0.8.98** is the only client tested in this repository's case; other clients, cores, and platforms need separate adaptation and validation. The detailed FlClash tutorial preserves the original investigation documented on **2026-10-02 UTC** and does not imply identical features across clients. An IP lookup, a node label, or a third-party score does not establish residential classification, consistent egress for every protocol, or account safety.
+The first topic includes computer settings, detailed FlClash steps, independent acceptance checks, and a configuration Skill that different local agents can read. The Skill now covers a Clash-family adaptation workflow while retaining the existing `skills/flclash-ai-privacy/` path and name. **macOS / FlClash 0.8.98** is the only client tested in this repository's case; other clients, cores, and platforms need separate adaptation and validation. The beginner guide covers installation, subscriptions, YAML and Skill conversations; the [advanced guide](docs/advanced-routing.en.md) preserves the original investigation documented on **2026-10-02 UTC** and does not imply identical features across clients. An IP lookup, a node label, or a third-party score does not establish residential classification, consistent egress for every protocol, or account safety.
 
 ## Start here
 
 | Goal | Resource |
 | --- | --- |
-| Configure your computer and FlClash manually | [Full English tutorial](docs/tutorial.en.md) |
+| Install and connect for the first time | [English beginner guide](docs/tutorial.en.md) |
+| Investigate DNS and chaining after setup | [Advanced Mihomo case](docs/advanced-routing.en.md) |
 | Work with an agent that has local permissions | [Configuration Skill](skills/flclash-ai-privacy/SKILL.md) |
 | Check client and core compatibility | [Compatibility reference](skills/flclash-ai-privacy/references/clash-compatibility.md) |
 | Prepare basic domain and mainland routing rules | [Portable policy fragment](skills/flclash-ai-privacy/templates/routing-policy.portable.yaml) |

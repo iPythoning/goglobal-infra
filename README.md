@@ -1,16 +1,17 @@
 # GoGlobal Infra：出海基础设施与实用内容导航
 
-[内容导航站](https://ipythoning.github.io/goglobal-infra/) · [English](README.en.md) · [中文完整教程](docs/tutorial.zh-CN.md) · [English guide](docs/tutorial.en.md)
+[内容导航站](https://ipythoning.github.io/goglobal-infra/) · [English](README.en.md) · [从零入门](docs/tutorial.zh-CN.md) · [English guide](docs/tutorial.en.md)
 
 GoGlobal Infra 整理可实践、可核验的出海基础设施内容，作为教程与工具的内容导航。第一组专题是 **Clash 家族的 AI 分流、固定出口与 DNS 隐私**：先识别客户端和内核，再按业务配置路由，独立验证出口与 DNS，同时保留其他网站的分流和订阅更新。
 
-第一组专题包含电脑设置、详细 FlClash 操作、分层验收及可由不同智能体读取的配置 Skill。Skill 已扩展为 Clash 家族的适配工作流，现有 `skills/flclash-ai-privacy/` 路径和名称保留兼容。本仓案例中唯一实测客户端为 macOS / FlClash **0.8.98**；其他客户端、内核和平台需要分别适配与验收。详细 FlClash 教程保留最初 **2026-10-02 UTC** 的排障过程，不代表所有客户端都有相同功能。一次 IP 查询、节点名称或第三方评分不能证明住宅属性、全流量一致或账号安全。
+第一组专题包含电脑设置、详细 FlClash 操作、分层验收及可由不同智能体读取的配置 Skill。Skill 已扩展为 Clash 家族的适配工作流，现有 `skills/flclash-ai-privacy/` 路径和名称保留兼容。本仓案例中唯一实测客户端为 macOS / FlClash **0.8.98**；其他客户端、内核和平台需要分别适配与验收。从零教程讲安装、订阅、YAML 和 Skill 交互；[进阶页](docs/advanced-routing.zh-CN.md)保留最初 **2026-10-02 UTC** 的排障过程，不代表所有客户端都有相同功能。一次 IP 查询、节点名称或第三方评分不能证明住宅属性、全流量一致或账号安全。
 
 ## 从哪里开始
 
 | 目标 | 入口 |
 | --- | --- |
-| 手工配置电脑和 FlClash | [完整中文教程](docs/tutorial.zh-CN.md) |
+| 第一次使用，先安装并联网 | [从零中文教程](docs/tutorial.zh-CN.md) |
+| 已完成入门，排查 DNS/链路 | [Mihomo 进阶与历史案例](docs/advanced-routing.zh-CN.md) |
 | 让有本地权限的智能体协助 | [配置 Skill](skills/flclash-ai-privacy/SKILL.md) |
 | 确认 Clash 客户端与内核适配范围 | [兼容性说明](skills/flclash-ai-privacy/references/clash-compatibility.md) |
 | 准备基础域名与大陆直连规则 | [通用增量模板](skills/flclash-ai-privacy/templates/routing-policy.portable.yaml) |

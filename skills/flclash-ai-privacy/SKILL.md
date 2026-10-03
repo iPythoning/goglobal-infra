@@ -5,6 +5,8 @@ description: Plan and verify AI routing and network stability across Clash-famil
 
 # Clash-family AI routing and privacy
 
+First-time users can start with the [Chinese beginner guide](https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html) or [English beginner guide](https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html) for installation, subscription import, YAML editing and conversation rounds.
+
 The installed Skill name and directory remain `flclash-ai-privacy` for compatibility. The workflow now covers Clash-family clients by their actual core capabilities, including legacy Clash/Premium and modern Mihomo clients. It does not assume every client accepts one complete YAML file. Only the originating macOS FlClash v0.8.98 operation was exercised on a live device.
 
 Use this Markdown workflow with any agent that can inspect the local machine, obtain authorization and operate its installed client. An agent without these capabilities should produce a concrete plan and instructions instead of claiming configuration success.

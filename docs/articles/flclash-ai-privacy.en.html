@@ -1,420 +1,447 @@
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlClash AI Routing and DNS Privacy: A Full-Path Guide</title><meta name="description" content="Computer, browser and FlClash settings for known AI services, fixed egress, optional HK upstream, encrypted DNS, subscription preservation and a portable agent Skill.">
+<title>Your First Clash Setup: Installation, Subscriptions, YAML and Skills</title><meta name="description" content="A first-time guide to FlClash installation, nodes and providers, subscription import, browser connectivity, YAML edits and guided Skill conversations.">
 <link rel="canonical" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html"><link rel="alternate" hreflang="zh-CN" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html"><link rel="alternate" hreflang="en" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FlClash AI Routing and DNS Privacy: A Full-Path Guide"><meta property="og:description" content="Computer, browser and FlClash settings for known AI services, fixed egress, optional HK upstream, encrypted DNS, subscription preservation and a portable agent Skill.">
+<meta property="og:title" content="Your First Clash Setup: Installation, Subscriptions, YAML and Skills"><meta property="og:description" content="A first-time guide to FlClash installation, nodes and providers, subscription import, browser connectivity, YAML edits and guided Skill conversations.">
 <meta property="og:url" content="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html"><meta name="twitter:card" content="summary">
-<link rel="stylesheet" href="https://ipythoning.github.io/goglobal-infra/assets/styles.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FlClash AI Routing and DNS Privacy: A Full-Path Guide", "description": "Computer, browser and FlClash settings for known AI services, fixed egress, optional HK upstream, encrypted DNS, subscription preservation and a portable agent Skill.", "inLanguage": "en", "datePublished": "2026-10-02", "dateModified": "2026-10-02", "author": {"@type": "Person", "name": "iPythoning"}, "mainEntityOfPage": "https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html"}</script>
+<link rel="stylesheet" href="https://ipythoning.github.io/goglobal-infra/assets/styles.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Your First Clash Setup: Installation, Subscriptions, YAML and Skills", "description": "A first-time guide to FlClash installation, nodes and providers, subscription import, browser connectivity, YAML edits and guided Skill conversations.", "inLanguage": "en", "datePublished": "2026-10-02", "dateModified": "2026-10-03", "author": {"@type": "Person", "name": "iPythoning"}, "mainEntityOfPage": "https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html"}</script>
 </head><body><a class="skip" href="#content">Skip to content / 跳至正文</a>
 <header><a class="brand" href="https://ipythoning.github.io/goglobal-infra/">GoGlobal Infra</a>
 <nav aria-label="Project"><a href="https://github.com/iPythoning/goglobal-infra">GitHub</a><a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md">Agent Skill</a><a href="https://shop.paibao.ai">shop.paibao.ai</a></nav></header>
-<main id="content"><div class="breadcrumb"><a href="https://ipythoning.github.io/goglobal-infra/">GoGlobal Infra</a> / AI network privacy</div><div class="languages"><a lang="zh-CN" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html">zh-CN</a> · <a lang="en" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html">en</a></div><article><h1 id="from-your-computer-to-ai-services-flclash-egress-and-dns-privacy">From Your Computer to AI Services: FlClash Egress and DNS Privacy</h1>
-<p><a href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html">中文</a> · <a href="https://github.com/iPythoning/goglobal-infra/blob/main/README.en.md">Project home</a> · <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md">Configuration Skill</a></p>
-<p>The goal is to send <strong>known overseas AI services through verified fixed egress, use an explicit encrypted proxy path for DNS, and preserve existing routing for other websites</strong>. This guide covers the computer, browser, FlClash, subscription updates, AI CLI tools, and independent checks.</p>
-<p>The tested baseline is <strong>macOS and FlClash 0.8.98</strong>. Public sources were checked on <strong>2026-10-02 UTC</strong>. Menus and loading behavior may change between client versions. Windows and Linux notes require their own acceptance checks. The case did not establish that every protocol used the same confirmed residential egress; those limitations remain part of the guide.</p>
-<h2 id="1-define-acceptance-before-changing-settings">1. Define acceptance before changing settings</h2>
+<main id="content"><div class="breadcrumb"><a href="https://ipythoning.github.io/goglobal-infra/">GoGlobal Infra</a> / AI network privacy</div><div class="languages"><a lang="zh-CN" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html">zh-CN</a> · <a lang="en" href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.en.html">en</a></div><article><h1 id="your-first-clash-setup-installation-subscriptions-yaml-and-skills">Your First Clash Setup: Installation, Subscriptions, YAML and Skills</h1>
+<p><a href="https://ipythoning.github.io/goglobal-infra/articles/flclash-ai-privacy.zh-CN.html">中文</a> · <a href="https://github.com/iPythoning/goglobal-infra/blob/main/README.en.md">Project home</a> · <a href="https://github.com/iPythoning/goglobal-infra/blob/main/docs/advanced-routing.en.md">Advanced troubleshooting</a></p>
+<p>Start here if you have never used Clash or written a configuration file. First get one ordinary browser connection working. Then learn how different sites use different routes, and how to ask a local agent to help. The initial steps require no terminal, residential proxy or Hong Kong server.</p>
+<p>Clash-family software handles network connections according to rules. You normally install a graphical client, such as FlClash or Clash Verge Rev. Its embedded <strong>core</strong> performs the forwarding. This guide demonstrates FlClash; the concepts apply across clients, but their buttons and supported fields differ.</p>
+<p>Sources were checked on <strong>2026-10-03</strong>: the official latest release was 0.8.99, with key controls checked in its public source. The only device-tested case remains <strong>macOS FlClash 0.8.98</strong>. Newer versions and other platforms have not been device-tested here. Locate controls by names/icons rather than fixed screen coordinates. For another client, read the <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/references/clash-compatibility.md">compatibility reference</a>.</p>
+<h2 id="1-download-and-install">1. Download and install</h2>
+<h3 id="choose-the-package-for-your-device">Choose the package for your device</h3>
 <table>
 <thead>
 <tr>
-<th>Layer</th>
-<th>Evidence required</th>
-<th>What it does not establish</th>
+<th>Device</th>
+<th>How to identify it</th>
+<th>Package name contains</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AI TCP / HTTPS</td>
-<td>New connections to each actual AI hostname reach the expected egress</td>
-<td>UDP, WebRTC, or IPv6 necessarily uses it</td>
+<td>Apple Silicon Mac</td>
+<td>Apple menu → About This Mac shows an Apple M-series chip</td>
+<td><code>macos-arm64.dmg</code></td>
 </tr>
 <tr>
-<td>DNS</td>
-<td>Queries take the intended path, with no observed unauthorized ISP resolvers</td>
-<td>Resolver IPs must equal the proxy egress</td>
+<td>Intel Mac</td>
+<td>About This Mac shows Intel</td>
+<td><code>macos-amd64.dmg</code></td>
 </tr>
 <tr>
-<td>WebRTC</td>
-<td>ICE candidates reveal no unapproved public path</td>
-<td>No candidates prove all browsers and future sessions are covered</td>
+<td>Intel/AMD Windows PC</td>
+<td>Settings → System → About shows an x64 system</td>
+<td><code>windows-amd64-setup.exe</code></td>
 </tr>
 <tr>
-<td>IPv6</td>
-<td>The selected policy covers IPv6, or it is unavailable within an explicitly IPv4-only design</td>
-<td><code>dns.ipv6: false</code> blocks IPv6 across the operating system</td>
+<td>Windows ARM PC</td>
+<td>The same screen shows ARM64</td>
+<td><code>windows-arm64-setup.exe</code></td>
 </tr>
 <tr>
-<td>Egress classification</td>
-<td>Stability, ownership information, and service delivery meet the requirement</td>
-<td>A “residential” label or fixed address establishes residential service</td>
+<td>Android</td>
+<td>Match the device architecture; modern ARM phones usually use arm64-v8a</td>
+<td>The matching APK</td>
 </tr>
 <tr>
-<td>Account / API</td>
-<td>An authorized official client function actually works</td>
-<td>A third-party percentage predicts account suspension</td>
+<td>Linux</td>
+<td>Identify distribution and processor architecture</td>
+<td>Matching DEB, RPM or AppImage</td>
 </tr>
 </tbody>
 </table>
-<p>Use independent conditions instead of a single green score. This is a network configuration and privacy diagnostic workflow; it does not require logging into a diagnostic site, submitting account tokens, or altering identity information.</p>
-<h2 id="2-gather-inputs-and-record-the-baseline">2. Gather inputs and record the baseline</h2>
-<p>Determine the following locally. Keep subscription URLs and credentials in private configuration or a trusted credential system, outside agent conversations, public Issues, and screenshots.</p>
+<p>The official FlClash packages used for this guide do not include iPhone/iPad. An Android APK cannot be installed on an iPhone.</p>
+<ol>
+<li>Open the <a href="https://github.com/chen08209/FlClash/releases/latest">official FlClash download page</a>.</li>
+<li>Expand <strong>Assets</strong>, the release's downloadable files.</li>
+<li>Select the package in the table. <strong>Source code</strong> is for developers, not a normal installer.</li>
+<li>Wait for the download, then open it from your browser's downloads or your Downloads folder.</li>
+</ol>
+<p><strong>Mac:</strong> open the DMG, drag FlClash into Applications, then launch it from Applications. If macOS blocks it, confirm the official source and use the normal system prompts; do not copy commands that disable system security.</p>
+<p><strong>Windows:</strong> open the setup EXE, check that the installer is FlClash, finish installation and launch it from Start. Administrator authorization may be required. A ZIP build does not establish that helper/TUN components were installed.</p>
+<p><strong>Android:</strong> open the APK and follow your device's installation authorization. A separate VPN permission appears when starting a connection later.</p>
+<p><strong>Linux:</strong> use the distribution's package installer for DEB/RPM. For AppImage, allow execution in file properties and run it. Follow <a href="https://github.com/chen08209/FlClash">FlClash's instructions</a> and <a href="https://docs.appimage.org/introduction/quickstart.html">AppImage's instructions</a>; an Ubuntu dependency command is not valid for every distribution.</p>
+<p><strong>Checkpoint:</strong> the app opens with Dashboard, Proxies and Profiles entries. An empty node list is normal before importing a service.</p>
+<h2 id="2-understand-nodes-providers-and-subscriptions">2. Understand nodes, providers and subscriptions</h2>
 <table>
 <thead>
 <tr>
-<th>Input</th>
-<th>Source and purpose</th>
+<th>Term</th>
+<th>Meaning</th>
+<th>Where you use it</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Explicit active profile</td>
-<td>Confirm the selected profile in FlClash; do not infer its file from modification time</td>
+<td>Node</td>
+<td>Settings for one proxy connection: service address, port, protocol and authentication</td>
+<td>A selectable entry on Proxies</td>
 </tr>
 <tr>
-<td>Fixed gateway node</td>
-<td>A trusted local runtime reads its existing name, protocol, numeric address, and authentication</td>
+<td>“Airport”</td>
+<td>Chinese community terminology for a service provider offering a set of proxies</td>
+<td>The provider's account site, plans and usage instructions</td>
 </tr>
 <tr>
-<td>Expected final egress</td>
-<td>Confirm through service authorization and independent connection tests; it may differ from the gateway address</td>
+<td>Subscription URL</td>
+<td>A private link for downloading and updating configuration</td>
+<td>Copy from the provider and paste into the client's URL import</td>
 </tr>
 <tr>
-<td>Authorized source</td>
-<td>Establish which upstream public address the final HTTP / SOCKS service accepts</td>
+<td>Profile / configuration</td>
+<td>A complete set of settings, commonly a YAML file</td>
+<td>One card on Profiles, containing nodes, groups and rules</td>
 </tr>
 <tr>
-<td>HK candidates</td>
-<td>Identify subscription node names, connectivity, and protocol capability</td>
+<td>Proxy group</td>
+<td>A set of nodes or other groups with manual or automatic selection</td>
+<td>Group tabs such as Auto Select</td>
 </tr>
 <tr>
-<td>Subscription metadata</td>
-<td>Preserve the original update toggle, interval, User-Agent, and source</td>
+<td>Rule / routing</td>
+<td>A match that sends a connection to DIRECT, a node or a group</td>
+<td>Request/connection records and the YAML rules list</td>
 </tr>
 <tr>
-<td>Network constraints</td>
-<td>Record resolvers, TUN, IPv6, LAN, corporate VPN / Tailscale, and remote sessions</td>
+<td>DIRECT</td>
+<td>Connect using the device's network without the selected proxy</td>
+<td>Mainland China and local-network routes where requested</td>
 </tr>
 <tr>
-<td>Routing scope</td>
-<td>AI only or the whole device; this guide assumes AI only</td>
+<td>Static residential proxy</td>
+<td>A proxy service intended to have a fixed residential exit; those properties need separate verification</td>
+<td>Optional fixed egress for selected services</td>
 </tr>
 </tbody>
 </table>
-<p>Record mode, system proxy, TUN, DNS override, automatic connection-closing behavior, and existing long-lived connections before editing. Keep recovery material locally with restricted access. Raw profiles can contain passwords and subscription tokens; do not add them to this public repository.</p>
-<p>For an active meeting, remote session, or agent connection over the same proxy, use the already running core and TUN. <strong>Installing TUN for the first time, changing an interface or protocol stack, or restarting a client can affect connectivity. They are not zero-disruption steps.</strong></p>
-<h2 id="3-computer-and-browser-settings">3. Computer and browser settings</h2>
-<h3 id="macos-inspect-first">macOS: inspect first</h3>
-<p>Inspect resolvers and search domains under System Settings → Network → active service → Details → DNS. Inspect the proxy settings to confirm that FlClash points to the intended local listener. See <a href="https://support.apple.com/guide/mac-help/change-dns-settings-on-mac-mh14127/mac">Apple’s DNS settings instructions</a>.</p>
-<p>Do not immediately delete a public DNS address shown by the operating system. TUN may already intercept requests to it; removing it can restore a router or corporate resolver through DHCP. Mihomo documents that macOS and Windows cannot automatically hijack DNS sent to the LAN. Verify the current destination over both UDP and TCP before choosing a change. <a href="https://wiki.metacubex.one/en/config/inbound/tun/#dns-hijack">Mihomo DNS hijacking</a></p>
-<p>Local inspection commands:</p>
-<pre><code class="language-sh">scutil --dns
-scutil --proxy
-networksetup -listallnetworkservices
-route -n get &quot;${PUBLIC_TEST_IP:?set from your local test plan}&quot;
-dig @&quot;${CURRENT_DNS_IP:?set from your local network}&quot; &quot;${TEST_DOMAIN:?set from your test plan}&quot; A
-dig +tcp @&quot;${CURRENT_DNS_IP:?set from your local network}&quot; &quot;${TEST_DOMAIN:?set from your test plan}&quot; A
-</code></pre>
-<p>Supply the variables from your local configuration. <code>scutil</code> may expose internal domains and interface information, so share only a necessary redacted summary. An existing fake-IP configuration may return a synthetic address for a test domain. That supports interception into the corresponding resolution process; encrypted DNS connections and an independent leak test must still verify the next hop.</p>
-<p>Preserve LAN and corporate VPN split DNS. Avoid unrelated changes to search domains, excluded routes, and proxy bypass entries. Audit other VPN or filtering software and use actual route evidence when multiple tools coexist.</p>
-<h3 id="browser-dns-assign-responsibility-explicitly">Browser DNS: assign responsibility explicitly</h3>
-<p>This design delegates public-domain encrypted DNS to Mihomo. <strong>Make the proxied DoH path in section 6 work before turning off browser secure DNS.</strong> Turning off secure DNS transfers responsibility; without encrypted upstream DNS, interception, and the intended browser route, it can instead downgrade privacy.</p>
-<p>Chrome exposes the setting under Settings → Privacy and security → Security → Use secure DNS. Check Ego and other Chromium browsers separately; a change in Chrome does not prove their setting changed. Google also distinguishes fallback in automatic mode from custom-provider behavior. <a href="https://support.google.com/chrome/answer/10468685?co=GENIE.Platform%3DDesktop&amp;hl=en">Chrome documentation</a></p>
-<p>Firefox has separate DoH protection levels. If it also delegates resolution to Mihomo, verify its own setting and repeat acceptance checks. A managed browser requires the administrator’s policy process. <a href="https://support.mozilla.org/en-US/kb/dns-over-https">Firefox documentation</a></p>
-<p>If an automation tool prohibits internal settings pages, the user performs the change and records that evidence. An agent must not bypass the prohibition through another tool. Retain Safe Browsing, certificate verification, and HTTPS protections.</p>
-<h3 id="ipv6-and-webrtc">IPv6 and WebRTC</h3>
-<p>Measure IPv4 and IPv6 separately. If IPv6 is required, use a proxy and TUN route that support it. The active network in the case already restricted IPv6; this guide does not instruct everyone to disable it on every interface. Interface changes can affect connectivity and need separate evaluation.</p>
-<p>WebRTC UDP can take another route. A TCP-only SOCKS node and domain rules do not establish that STUN follows AI egress. If the goal includes prohibiting non-proxied UDP, evaluate a browser-supported <code>disable_non_proxied_udp</code> policy and its effect on calls. That is a separate browser change: <strong>it was not configured and accepted as passing in this case</strong>. Check support for the browser and management method, then test candidates and calling behavior.</p>
-<p>Do not change real language, timezone, or fonts to chase a diagnostic score.</p>
-<h2 id="4-establish-the-direction-of-the-proxy-chain">4. Establish the direction of the proxy chain</h2>
-<p>Assume an existing SOCKS gateway at a numeric address already uses a fixed final egress internally. The names below are illustrative; your local plan supplies actual names.</p>
-<pre><code class="language-mermaid">flowchart LR
-    A[Computer] --&gt; B{AI group}
-    B --&gt; C[US-DIRECT]
-    C --&gt; G[Existing fixed SOCKS gateway]
-    B --&gt; D[US-HK]
-    D --&gt; E[HK-UPSTREAM]
-    E --&gt; G
-    G --&gt; F[Authorized fixed egress inside gateway]
-    F --&gt; H[AI service]
-</code></pre>
-<p>Distinguish the <strong>connection endpoint, authorized source, and final egress</strong>. If a final HTTP proxy accepts only the gateway’s public address, connecting directly from your computer can fail. Entering through an accessible authorized gateway is the correct path. In this case, the existing SOCKS gateway already returned the fixed final egress, so it was preserved and cloned with an HK upstream.</p>
-<p>“Direct” in <code>US-DIRECT</code> means direct to the gateway. It is not Clash’s <code>DIRECT</code> policy. The cloned gateway node adds <code>dialer-proxy: HK-UPSTREAM</code>, giving computer → HK → gateway → final egress. Verify the source authorized by the next endpoint. Do not let the HK group select the cloned node in return, which creates a cycle. <a href="https://wiki.metacubex.one/en/config/proxies/dialer-proxy/">Mihomo dialer-proxy</a></p>
-<p>If you only have the final HTTP endpoint and no suitable gateway, build a chain through the upstream it actually authorizes. A path without HK exists only when the computer’s public address is also authorized and tested, or another accessible authorized gateway provides it. This case does not imply that any fixed endpoint is directly reachable.</p>
-<p>Plain SOCKS5 does not encrypt its transport; HTTPS content retains its own TLS. If gateway authentication and metadata need protection, verify a supported TLS or other encrypted transport. Using DoH for DNS does not establish encryption of the entire proxy chain. <a href="https://wiki.metacubex.one/en/config/proxies/socks/">Mihomo SOCKS configuration</a></p>
-<h2 id="5-detailed-flclash-settings-and-groups">5. Detailed FlClash settings and groups</h2>
-<h3 id="51-work-with-the-running-network">5.1 Work with the running network</h3>
-<p>Check these items in the installed client. Preserve a compliant existing state instead of repeatedly toggling networking.</p>
+<p>Installing FlClash does not supply a subscription or a working proxy. Obtain a subscription or complete profile you are authorized to use. This guide does not select or endorse a provider.</p>
+<p>Subscription links can contain access credentials. Keep them in the client or private local files, away from chat, public comments and screenshots. Treat proxy passwords the same way.</p>
+<h2 id="3-import-your-subscription">3. Import your subscription</h2>
+<h3 id="copy-the-right-link">Copy the right link</h3>
+<ol>
+<li>In your provider's account site, find Subscription, Client Subscription or Usage Instructions.</li>
+<li>Choose a <strong>Clash / Clash Meta / Mihomo</strong> format compatible with your client.</li>
+<li>Use its copy-link button. The account webpage's address and another client's export format are not interchangeable with this URL.</li>
+</ol>
+<p>If the provider supplies a complete <code>.yaml</code> file, use file import below.</p>
+<h3 id="paste-it-into-flclash">Paste it into FlClash</h3>
+<ol>
+<li>Open <strong>Profiles</strong> (配置).</li>
+<li>Use <strong>+ Add Profile</strong> (添加配置), or the empty screen's Add Profile action.</li>
+<li>Choose <strong>URL</strong>.</li>
+<li>Paste the private subscription URL into the import dialog. In 0.8.99, an optional name is also available; use an identifiable name such as “Daily subscription”. The 0.8.98 dialog is titled “Import from URL”.</li>
+<li>Choose <strong>Submit</strong> (提交) and wait for the download.</li>
+<li>Click the new profile card to select it. With several profiles present, a new import is not necessarily active.</li>
+<li>Open <strong>Proxies</strong> and confirm that groups or actual nodes appeared.</li>
+</ol>
+<p>See the <a href="https://github.com/chen08209/FlClash/blob/v0.8.99/lib/views/profiles/add.dart">official import implementation</a>.</p>
+<p><strong>File import:</strong> Profiles → + → File → select the provider's complete YAML → select the resulting card. The repository's placeholder fragments are not complete importable profiles.</p>
+<p><strong>Checkpoint:</strong> a selected profile card and actual proxy members are visible. Solve import problems before adding DNS or TUN changes.</p>
 <table>
 <thead>
 <tr>
-<th>Item</th>
-<th>Target for this design</th>
-<th>Verification</th>
+<th>Problem</th>
+<th>First check</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Mode</td>
-<td>Rule</td>
-<td>Rule selected on the dashboard; Global changes non-AI routing</td>
+<td>Download failed</td>
+<td>Correct complete URL, working provider account page and active service; use the provider's complete file if needed</td>
 </tr>
 <tr>
-<td>System proxy</td>
-<td>On</td>
-<td>Dashboard and OS proxy state agree</td>
+<td>Invalid configuration</td>
+<td>Correct Clash/Mihomo format; the response may instead be a login page</td>
 </tr>
 <tr>
-<td>Virtual network / TUN</td>
-<td>On</td>
-<td>Existing TUN works and a public test destination routes through it</td>
+<td>Old nodes still appear</td>
+<td>Select the imported card on Profiles</td>
 </tr>
 <tr>
-<td>Automatically close connections</td>
-<td>Off</td>
-<td>Locate the setting in this version to avoid active connection cleanup on switching</td>
-</tr>
-<tr>
-<td>Global DNS override</td>
-<td>Off</td>
-<td>The active profile supplies DNS; avoid competing definitions</td>
-</tr>
-<tr>
-<td>TUN device, stack, MTU, routes</td>
-<td>Preserved</td>
-<td>A hot edit must not change these fields and rebuild the interface</td>
+<td>Several indistinguishable cards</td>
+<td>Give the intended profile an identifiable name in its edit screen</td>
 </tr>
 </tbody>
 </table>
-<p>These toggles are not proof by themselves. System proxy settings primarily cover applications that honor them; TUN covers other traffic included by its routes. Verify actual connections and test results.</p>
-<h3 id="52-identify-the-source-profile">5.2 Identify the source profile</h3>
-<p>Open Profiles and confirm the active card. Duplicate names may identify different profiles; map the selected card to its actual local identifier. Determine whether subscriptions regenerate it and whether scripts or global overrides modify it.</p>
-<p>Preserve existing proxies, other groups, rule ordering, subscription metadata, and credential bytes. Restrict changes to AI groups, explicitly identified AI rules, DNS, and the new provider. Do not replace an entire subscription profile with this guide. Download caches are not a durable editing location.</p>
-<h3 id="53-give-each-group-a-clear-role">5.3 Give each group a clear role</h3>
+<h2 id="4-make-your-first-browser-connection">4. Make your first browser connection</h2>
+<p>These are first-install steps. Existing users should record their state and preserve the currently selected residential connection.</p>
+<h3 id="rule-mode">Rule mode</h3>
+<p>On <strong>Dashboard</strong>, find <strong>Outbound Mode</strong> and select <strong>Rule</strong>. Cards can be rearranged, so identify their labels.</p>
+<ul>
+<li><strong>Rule:</strong> use routing matches for each destination. This is the mode for the policy below.</li>
+<li><strong>Global:</strong> use the global group instead of ordinary per-site routing.</li>
+<li><strong>Direct:</strong> connect through the device's network; this does not implement fixed proxy egress for overseas AI.</li>
+</ul>
+<h3 id="desktop-run-the-client-and-enable-system-proxy">Desktop: run the client and enable system proxy</h3>
+<p>Click the <strong>▶ play icon</strong> to start forwarding. It becomes a pause icon while running; some layouts also show elapsed time. Then enable <strong>System Proxy</strong> on Dashboard. Applications that follow the operating system's proxy setting can now use the local proxy. <a href="https://github.com/chen08209/FlClash/blob/v0.8.99/lib/views/dashboard/widgets/start_button.dart">Official run control</a></p>
+<p><strong>Virtual Network Card / TUN is not required for this first browser step.</strong> System proxy does not cover every development tool, game or UDP flow. Inspect those applications later rather than assuming browser success covers the whole device.</p>
+<h3 id="android-authorize-vpn">Android: authorize VPN</h3>
+<p>Use the client's start control and accept Android's VPN connection prompt. Do not look for the desktop System Proxy card. Application exclusions and conflicts with other VPNs need their own checks. <a href="https://developer.android.com/develop/connectivity/vpn">Android VPN mechanism</a></p>
+<h3 id="choose-an-ordinary-route">Choose an ordinary route</h3>
+<ol>
+<li>Open Proxies.</li>
+<li>Locate the profile's ordinary-traffic group. Providers choose its name, such as Proxy or 节点列表; GLOBAL is not a universal ordinary-group name.</li>
+<li>Open that group and inspect its members.</li>
+<li>Choose its existing Auto Select / URLTest group if present, or a provider node. Clicking a card selects it for the group you are viewing.</li>
+<li>If needed, use <strong>Delay Test</strong>; 0.8.99 may show a <strong>⚡ icon</strong>. A smaller number describes one probe target. Timeout means that probe did not finish successfully in time.</li>
+<li>Open a familiar mainland site and a public overseas webpage such as <a href="https://github.com/">GitHub</a> without logging in.</li>
+</ol>
+<p><strong>Checkpoint:</strong> the client is running, pages load and new requests appear in Requests/Connections. If not, check the active profile, mode, proxy/VPN authorization and selected member before changing more settings.</p>
+<h2 id="5-how-the-proxy-page-and-rules-work-together">5. How the proxy page and rules work together</h2>
+<p>The order is: <strong>a site opens a connection → the first matching rule chooses a target → if that target is a group, the group's current policy chooses its member</strong>.</p>
+<p>Suppose there are separate Foreign AI and Ordinary groups. Claude rules target Foreign AI; ordinary pages target Ordinary. Selecting Japan in Ordinary changes traffic using Ordinary. It does not automatically change the residential node in Foreign AI.</p>
+<p>Tabs normally show different groups. Open the group name before checking its choice. A main group can select an automatic subgroup, which then selects the actual node.</p>
+<p>Verify a <strong>fresh request</strong> in Requests/Connections: hostname, matched rule and connection chain. Existing video, download or AI streams may retain their old route. Do not close every connection merely to check a change.</p>
+<h2 id="6-add-a-fixed-ai-exit-when-you-need-one">6. Add a fixed AI exit when you need one</h2>
+<p>The latest originating policy is:</p>
 <table>
 <thead>
 <tr>
-<th>Group</th>
-<th>Members and role</th>
+<th>Traffic</th>
+<th>Intended route</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>US-DIRECT</code></td>
-<td>The sole verified fixed gateway without an HK dialer; used for ordinary AI and bootstrap resolution</td>
+<td>Chinese AI, such as DeepSeek and Kimi</td>
+<td>DIRECT</td>
 </tr>
 <tr>
-<td><code>HK-UPSTREAM</code></td>
-<td>Tested HK candidates from the original subscription provider</td>
+<td>Ordinary mainland China sites, such as Douyin</td>
+<td>DIRECT</td>
 </tr>
 <tr>
-<td><code>US-HK</code></td>
-<td>A clone of the same gateway, retaining authentication and adding the HK dialer</td>
+<td>Selected overseas AI, such as Claude</td>
+<td>Verified fixed residential proxy, without an extra HK hop by default</td>
 </tr>
 <tr>
-<td><code>AI</code></td>
-<td>Manual choice between the two verified paths; other candidates require acceptance before admission</td>
+<td>Other overseas sites</td>
+<td>Existing ordinary routing and automatic selection</td>
 </tr>
 </tbody>
 </table>
-<p>The following shows relationships only; <strong>it is not a complete importable profile</strong>. A trusted local runtime preserves and clones the original gateway entry without reproducing credentials here.</p>
+<p>“Residential direct” still uses the residential proxy; it omits an additional upstream. It is different from Clash's DIRECT.</p>
+<p>You can finish ordinary connectivity without buying a residential service. If you need that fixed exit, obtain its actual protocol and authorized connection information locally. Renaming an airport node does not establish residential service, and HTTP settings cannot be inserted into a VLESS node.</p>
+<p>Record the existing residential node's <strong>exact name</strong>, including spaces and symbols. YAML references that name; authentication stays local. Classify Chinese AI according to the approved provider policy, not merely <code>.cn</code> or an assumed server country. Check the actual services, APIs and tools you use.</p>
+<h2 id="7-learn-to-write-a-yaml-change">7. Learn to write a YAML change</h2>
+<p>YAML stores settings as plain text. You already imported a complete profile, so start with a local change to it rather than manually rebuilding every provider node.</p>
+<h3 id="read-a-group-definition">Read a group definition</h3>
 <pre><code class="language-yaml">proxy-groups:
-  - name: US-DIRECT
+  - name: &quot;Foreign AI&quot;
     type: select
-    proxies: [&quot;&lt;existing-fixed-gateway-node&gt;&quot;]
-  - name: HK-UPSTREAM
-    type: select
-    use: [&quot;&lt;original-subscription-provider&gt;&quot;]
-    filter: &quot;&lt;HK-filter-from-your-node-names&gt;&quot;
-    empty-fallback: REJECT
-  - name: US-HK
-    type: select
-    proxies: [&quot;&lt;gateway-clone-with-HK-dialer&gt;&quot;]
-  - name: AI
-    type: select
-    proxies: [US-DIRECT, US-HK]
+    proxies:
+      - &quot;My residential node&quot;
 </code></pre>
-<p>Add the dialer property to the cloned node:</p>
-<pre><code class="language-yaml"># Preserve the original protocol, address, port, and authentication locally.
-name: &quot;&lt;gateway-clone-with-HK-dialer&gt;&quot;
-dialer-proxy: HK-UPSTREAM
-</code></pre>
-<p>Do not put <code>DIRECT</code>, a broad automatic selector, or unverified subscription nodes in the AI root. Explicitly set <code>empty-fallback: REJECT</code> for dynamically filtered groups. Check actual members after updates rather than trusting the intended YAML. <a href="https://wiki.metacubex.one/en/config/proxy-groups/">Mihomo group fields</a></p>
-<p>If an existing general automatic group includes every proxy, exclude the new HK clone so it does not enter unrelated routing automatically. Preserve that group and its original members.</p>
-<h3 id="54-load-the-local-change">5.4 Load the local change</h3>
-<p>Validate YAML, references, absence of cycles, and absence of unresolved placeholders locally. If there is an authorized safe core-validation command, check compatibility without starting a second core on the same ports.</p>
-<p>In the tested <strong>0.8.98</strong> workflow, opening the active profile card’s menu → More → Override and leaving the override page triggered configuration application. Review that version’s <a href="https://github.com/chen08209/FlClash/blob/v0.8.98/lib/views/profiles/overwrite/overwrite.dart">OverwriteView</a> and <a href="https://github.com/chen08209/FlClash/blob/v0.8.98/lib/common/task.dart">task implementation</a>. This is a version-specific loading path, not a promise about every release.</p>
-<p>Check for unsaved edits first. After application, confirm the active profile, groups, core process, and TUN state. Do not stop or restart the core, turn TUN off, or close all connections. A hot application can still recreate provider-related connections; preserving streams reduces deliberate interference but does not guarantee zero disruption.</p>
-<p>On Proxies, select <code>AI → US-DIRECT</code>. To test the HK chain, first choose a tested member of <code>HK-UPSTREAM</code>, then select <code>AI → US-HK</code>. A latency test proves reachability to its probe target, not the final egress.</p>
-<h2 id="6-dns-without-bootstrap-cycles">6. DNS without bootstrap cycles</h2>
-<p>DNS serves ordinary websites, resolves proxy-node names, and resolves the names of DNS servers. If ordinary DNS requires HK while the HK node itself needs ordinary DNS to resolve its address, startup becomes circular.</p>
-<p>This design gives bootstrap and proxy-name resolution an <strong>independent numeric-address gateway</strong>. It must not depend on the subscription provider or on names that it needs to resolve. Ordinary queries then use the currently selected AI path.</p>
+<p><code>proxy-groups</code> introduces the group list. The dash starts one item. <code>name</code> is its label; <code>type: select</code> means manual selection. The indented <code>proxies</code> list names existing nodes or groups. Replace the example node name with the exact name in your own profile.</p>
+<p>Use spaces, consistently indented; this example uses two spaces per level. Do not use tabs, smart quotes or a non-ASCII colon. A <code>#</code> starts a comment. Quotes keep spaces and symbols within one name.</p>
+<h3 id="the-three-sections-you-need-first">The three sections you need first</h3>
 <table>
 <thead>
 <tr>
-<th>Setting</th>
-<th>Arrangement in this design</th>
+<th>Section</th>
+<th>What it contains</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>enable</code> / <code>enhanced-mode</code></td>
-<td>Enable DNS and preserve a working, verified fake-IP configuration</td>
+<td><code>proxies</code></td>
+<td>Individual connection settings; preserve the provider's original entries</td>
 </tr>
 <tr>
-<td><code>listen</code></td>
-<td>Preserve the working local listener; do not set OS DNS to a local address without an available standard DNS service</td>
+<td><code>proxy-groups</code></td>
+<td>Group membership and selection policies</td>
 </tr>
 <tr>
-<td><code>respect-rules</code></td>
-<td>On, with explicit DNS group selection to avoid accidental broad-rule matches</td>
-</tr>
-<tr>
-<td><code>prefer-h3</code></td>
-<td>Off; avoid adding an untested UDP / HTTP/3 DNS path</td>
-</tr>
-<tr>
-<td><code>nameserver</code></td>
-<td>A validated numeric-IP DoH URL with <code>#AI</code>, or the URL-encoded real AI group name</td>
-</tr>
-<tr>
-<td><code>default-nameserver</code></td>
-<td>Numeric-IP DoH with independent <code>#US-DIRECT</code></td>
-</tr>
-<tr>
-<td><code>proxy-server-nameserver</code></td>
-<td>The same independent path to resolve subscription proxy hostnames</td>
-</tr>
-<tr>
-<td><code>fallback</code></td>
-<td>Do not add an unverified resolution path</td>
-</tr>
-<tr>
-<td>DNS policies</td>
-<td>Audit policies that bypass the public DNS design; preserve necessary internal split DNS</td>
-</tr>
-<tr>
-<td>System resolver append</td>
-<td>Inspect the client’s effective configuration; do not silently add system DNS to public queries</td>
-</tr>
-<tr>
-<td>Fake-IP range and exceptions</td>
-<td>Preserve working values and LAN exceptions rather than changing the interface</td>
+<td><code>rules</code></td>
+<td>Destination matches and their targets</td>
 </tr>
 </tbody>
 </table>
-<p>The form is <code>https://&lt;verified-DoH-IP&gt;/&lt;provider-path&gt;#AI</code>. Obtain the numeric address and path from the chosen resolver’s official information and verify its certificate. Do not skip TLS checks. The fragment must match the group name exactly; encode spaces and non-ASCII names. A missing proxy name can be interpreted as another connection selector, so verify the effective configuration. <a href="https://wiki.metacubex.one/en/config/dns/">Mihomo DNS and bootstrap parameters</a></p>
-<p>Encrypted DNS protects the queries it carries. You still need evidence that the proxy, browser, and OS actually use it. <a href="https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/">Cloudflare DoH explanation</a></p>
-<p>If the fixed gateway requires the subscription to be reachable, it is not an independent bootstrap path. Establish a non-circular authorized resolution path first. If that is unavailable, stop changes that depend on it instead of silently switching to <code>DIRECT</code>.</p>
-<p><code>dns.ipv6: false</code> concerns AAAA responses. The OS may still have cached addresses, explicit IPv6 connections, or other resolvers, so IPv6 routing requires its own check.</p>
-<h2 id="7-acl4ssr-rules-and-subscription-updates">7. ACL4SSR rules and subscription updates</h2>
-<h3 id="put-ai-rules-before-broad-routing">Put AI rules before broad routing</h3>
-<p>Use the public ACL4SSR <a href="https://github.com/ACL4SSR/ACL4SSR/blob/master/Clash/Ruleset/AI.list">AI.list</a>. It is a text rule list, with provider fields <code>type: http</code>, <code>behavior: classical</code>, and <code>format: text</code>. The local plan supplies its URL, refresh interval, and download proxy.</p>
-<pre><code class="language-yaml"># Relationship only: the local plan supplies provider fields and values.
+<p>Other provider and DNS sections can already exist. Leave them intact. The <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/templates/routing-policy.portable.yaml">portable template</a> contains unresolved placeholders and is for planning, not replacing a complete subscription.</p>
+<p>For a separately supplied <strong>HTTP proxy</strong>, recognize this node structure:</p>
+<pre><code class="language-yaml">proxies:
+  - name: &quot;My residential node&quot;
+    type: http
+    server: &quot;&lt;provider-supplied-host&gt;&quot;
+    port: &lt;provider-supplied-port-number&gt;
+    username: &quot;&lt;provider-supplied-username&gt;&quot;
+    password: &quot;&lt;provider-supplied-password&gt;&quot;
+</code></pre>
+<p>This is an unfilled fragment. Fill every placeholder <strong>only in a private local editor</strong>; the port is a number. For source-IP authorization without username/password, omit those lines according to provider instructions. Have a trusted local tool encode quotes/backslashes correctly without exposing passwords. HTTPS, SOCKS5 and VLESS require their own fields. Append the node to the existing list without a second top-level <code>proxies</code> key. Its name does not establish residential qualification. <a href="https://wiki.metacubex.one/en/config/proxies/http/">HTTP fields</a></p>
+<h3 id="before-and-after">Before and after</h3>
+<p>Assume the complete profile already defines Auto Select and My residential node. These fragments show only the edited sections.</p>
+<p>Before:</p>
+<pre><code class="language-yaml">proxy-groups:
+  - name: &quot;Ordinary&quot;
+    type: select
+    proxies:
+      - &quot;Auto Select&quot;
 rules:
-  - RULE-SET,ai,AI
-  # Existing unrelated rules follow in their original order.
+  - &quot;MATCH,Ordinary&quot;
 </code></pre>
-<p>Place AI rules before broad Google, overseas, media, <code>DIRECT</code>, and <code>MATCH</code> rules, while retaining required internal exceptions. Identify existing AI rules before redirecting their target; do not globally replace every old policy name.</p>
-<p>Lists cover known hostnames, not all traffic semantically related to AI. Audit the OpenRouter, Windsurf, Codeium, Augment, and self-hosted API-relay hostnames you actually use. Inspect the connected host, matched rule, and selected group. Add necessary local rules. Public lists can include shared service domains and can change scope on refresh; recheck key applications after updates.</p>
-<h3 id="keep-the-original-subscription-as-a-separate-source">Keep the original subscription as a separate source</h3>
-<p>Preserve its URL, update toggle, interval, and metadata. A combined profile uses a separate HTTP proxy-provider referencing the same authorized source. A trusted local runtime retrieves the private URL without sending it to the model. Retain the required User-Agent. Provider intervals use seconds; do not copy an application database’s millisecond value unchanged.</p>
-<p>Use an independent working gateway for provider downloads, avoiding dependence on nodes that have not yet been downloaded. Confirm the response format and actual cached members. <a href="https://wiki.metacubex.one/en/config/proxy-providers/">Mihomo proxy-providers</a></p>
-<p>This preserves the original subscription settings and permits the combined profile’s dynamic members to refresh. It does not automatically merge every subscribed rule or script. Check original subscription metadata and combined-provider membership separately.</p>
-<p>Put residential candidates in an isolated pending-verification group, initially outside the AI root. Check IPv4 / IPv6 egress, stability, WARP / VPN evidence, appropriate ownership databases, and provider information. Several nodes labeled residential returned WARP IPv6 in the case, so their labels were insufficient for admission.</p>
-<h2 id="8-acceptance-collect-evidence-at-every-layer">8. Acceptance: collect evidence at every layer</h2>
-<p>Keep <code>US-DIRECT</code> selected throughout one test run. Then repeat key checks with <code>US-HK</code> and restore the daily default. Record time, versions, selected groups, test targets, and failures rather than keeping only a successful screenshot.</p>
-<h3 id="81-egress-for-each-actual-ai-hostname">8.1 Egress for each actual AI hostname</h3>
-<p>Test Claude, ChatGPT, OpenAI API, and other AI hosts you use separately. Use <code>/cdn-cgi/trace</code> only on hosts that provide it. Otherwise use an authorized actual connection and its FlClash record; an arbitrary API response is not IP evidence.</p>
-<pre><code class="language-sh"># Read variables from your local test plan; use public, credential-free probes.
-curl --fail --show-error --silent --proxy &quot;${LOCAL_PROXY_URL:?set local listener URL}&quot; \
-  --noproxy '' &quot;${PUBLIC_TRACE_URL:?set credential-free probe URL}&quot;
+<p>After:</p>
+<pre><code class="language-yaml">proxy-groups:
+  - name: &quot;Ordinary&quot;
+    type: select
+    proxies:
+      - &quot;Auto Select&quot;
+  - name: &quot;Foreign AI&quot;
+    type: select
+    proxies:
+      - &quot;My residential node&quot;
+rules:
+  # Preserve existing earlier rejection/security/LAN/VPN priorities.
+  - &quot;DOMAIN-SUFFIX,deepseek.com,DIRECT&quot;
+  - &quot;DOMAIN-SUFFIX,kimi.com,DIRECT&quot;
+  - &quot;DOMAIN-SUFFIX,kimi.ai,DIRECT&quot;
+  - &quot;DOMAIN-SUFFIX,moonshot.ai,DIRECT&quot;
+  - &quot;DOMAIN-SUFFIX,anthropic.com,Foreign AI&quot;
+  - &quot;DOMAIN-SUFFIX,claude.ai,Foreign AI&quot;
+  - &quot;DOMAIN-SUFFIX,douyin.com,DIRECT&quot;
+  # Retain existing mainland and other rules here after checking order.
+  - &quot;MATCH,Ordinary&quot;
 </code></pre>
-<p>A CLI may ignore system proxy settings. Check ordinary CLI traffic captured by TUN, explicit local-proxy traffic, and the daily AI client’s actual connections separately. In FlClash Connections, inspect new hostnames, matched rules, and the entire group chain. Report only necessary fields.</p>
-<p>For remote gateway resolution, <code>socks5h</code> differs from locally resolving <code>socks5</code>. A trusted runtime must inject any proxy authentication through a constrained interface or stdin configuration; never put passwords in arguments, output, or shell history.</p>
-<p>HTTP or TLS success proves that request. Official account status, quota, and service availability are separate checks, requiring explicit authorization before using account credentials.</p>
-<h3 id="82-extended-dns-checks">8.2 Extended DNS checks</h3>
-<p>Open <a href="https://dnsleaktest.com/">DNSLeakTest</a> in the browser you actually use, run Extended test, and wait for all rounds. Record resolver addresses, organizations, and time without changing nodes or DNS mid-test.</p>
-<p>An unauthorized local ISP resolver calls for investigation of browser DoH, LAN DNS, appended system resolvers, VPNs, and application-specific DNS. Recursive resolvers commonly expose their own addresses; Anycast locations are not necessarily the subscriber’s location. Corroborate results with the effective configuration and connection paths. <a href="https://dnsleaktest.com/how-to-fix-a-dns-leak.html">DNSLeakTest repair principles</a></p>
-<h3 id="83-webrtc-and-ipv6">8.3 WebRTC and IPv6</h3>
-<p>Inspect actual ICE candidates with an independent tool such as <a href="https://browserleaks.com/webrtc">BrowserLeaks WebRTC</a>. Check valid IPv4 / IPv6 addresses and candidate types, distinguishing local addresses, mDNS names, proxy addresses, and ISP addresses. Not every candidate is a public route, and not every numeric substring is an IP address.</p>
-<p>A public candidate belonging to another subscription egress establishes inconsistent paths: you cannot report that all IPs use the AI gateway. An ISP candidate adds a direct-egress concern. No candidates only supports that browser run, not other applications or later network conditions.</p>
-<p>Use an independent IPv6 IP page and local <code>curl -6</code> / route checks. For an explicitly IPv4-only plan, record the unavailable IPv6 path and scope. For IPv6 support, prove the selected route handles it. Absence of AAAA answers is not route acceptance.</p>
-<h3 id="84-read-fuckclaude-check-cc-as-signals">8.4 Read FuckClaude / check-cc as signals</h3>
-<p>These open-source projects help organize language, timezone, Intl, fonts, container, and network signals. They are not Anthropic’s official risk model. A web page cannot inspect complete CLI settings, account status, or every network path. A server-side API sees request headers and network context, which differs from browser sampling. <a href="https://github.com/LinXiaoTao/FuckClaude">FuckClaude</a> · <a href="https://github.com/yacuo/check-cc">check-cc</a></p>
-<p>In the case, FuckClaude displayed 33 / 100, mainly from language, fonts, and Emoji signals, while the deployed check-cc displayed 91%. The latter’s client had candidate-IP parsing and data-merging issues, while different services could sample different egress. A causal link between Intl-field replacement and a displayed mismatch remains an inference. That number is not a 91% suspension probability. Public-source inspection was pinned to <a href="https://github.com/yacuo/check-cc/tree/078e7baa">check-cc revision 078e7baa</a>, with the deployed client inspected through <a href="https://checkcc.org/_next/static/chunks/1hz158h1zwy8v.js">its public script at that time</a>. Public source cannot establish the logic of unpublished deployed APIs or backend services. Record time, revision, signal meanings, and source/deployment differences.</p>
-<p>Do not install an unknown one-click repair program just to reproduce checks. Do not submit account cookies, API keys, conversations, or subscription authentication to a diagnostic page. Current versions may contact IP-intelligence services, STUN, or third-party resources; review them rather than treating “local detection” in a README as proof of no network activity.</p>
-<h3 id="85-classification-stability-and-existing-streams">8.5 Classification, stability, and existing streams</h3>
-<p>Repeated observations support fixed egress over that period. Residential classification needs service information and suitable ownership evidence. Databases may disagree, and <code>Corporate / Business</code> is not a final verdict by itself. Record sources and dates, and use “unconfirmed” when evidence is incomplete.</p>
-<p>Intermittent TLS failures remain unresolved failures. Compare DNS paths, remote resolution, upstream selection, effective settings, and new connections. Do not hide the cause by pinning CDN IPs or disabling certificate checks.</p>
-<p>Established AI streams can retain their previous egress. With automatic cleanup off, wait for natural reconnects or let the user reconnect the affected application at an acceptable time. You cannot promise both untouched existing connections and immediate replacement of every current path.</p>
-<h2 id="9-troubleshooting-and-recovery">9. Troubleshooting and recovery</h2>
+<p>A rule's comma-separated fields are match type, match content and target. DOMAIN-SUFFIX includes the root domain and its subdomains. MATCH is the final rule when none of the earlier entries match.</p>
+<p>Chinese AI goes before broad AI matches; foreign AI goes before broad China matches. This tiny list does not cover all sites, login dependencies or AI providers. Preserve existing China classification and add approved missing domains. Do not delete the old rules and paste only these examples.</p>
+<p>Add a group inside the one existing group list and rules inside the one existing rules list. Do not append duplicate top-level keys or duplicate group names. If your ordinary group lacks Auto Select, retain its complete original members. A referenced node must already exist.</p>
+<h3 id="edit-save-and-verify">Edit, save and verify</h3>
+<p>The FlClash path is <strong>profile-card menu → Edit → the Configuration row's ⋮ → Edit</strong>. Save the inner editor, then save the outer edit screen; 0.8.99 uses a <strong>✓ icon</strong> with a Save tooltip. <a href="https://github.com/chen08209/FlClash/blob/v0.8.99/lib/views/profiles/edit.dart">Official edit implementation</a></p>
+<ol>
+<li>Export a private backup: Profiles → the intended card's ⋮ → More → Export File. Full application backup is Tools → Backup and Restore → Local → Backup. Keep backup files private.</li>
+<li>Edit with the client editor or a plain-text editor. Use plain text in macOS TextEdit, UTF-8 in Windows Notepad, and a <code>.yaml</code> filename rather than <code>.yaml.txt</code>.</li>
+<li>Merge only the reviewed groups and rules; preserve credentials, providers, DNS and the final MATCH.</li>
+<li>Check indentation, unique names, valid references and the exact core's supported fields. Correct errors before loading.</li>
+<li>Load at a time when configuration reloading is acceptable. Existing connections can be affected; during an active meeting or stream, prepare the private copy without loading.</li>
+<li>In Proxies select Foreign AI → the actual residential node and confirm the ordinary group's intended choice.</li>
+<li>Check fresh requests for Claude, Chinese AI, Douyin and an ordinary overseas page.</li>
+</ol>
+<p>Editing a URL subscription can be overwritten by updates. FlClash may offer to disable automatic updating; doing so is not preservation of subscription updates. For a durable patch, have the Skill plan the installed version's supported override/merge mechanism.</p>
+<p><strong>Checkpoint:</strong> no configuration error, expected new-request routes, working ordinary traffic and retained subscription behavior. A saved file alone is not proof of live application.</p>
+<h2 id="8-install-the-skill-in-your-agent-tool">8. Install the Skill in your agent tool</h2>
+<p>A Skill contains instructions, references and an optional helper for a local agent such as <strong>Codex or Claude Code</strong>. FlClash still handles connections. The Skill supplies neither nodes nor account logins and grants no system permissions.</p>
+<p>The main path below uses conversation, not Python. The original helper is a documented Mihomo-only advanced subset and does not automatically implement this Chinese-AI priority split or ordinary automatic selection.</p>
+<h3 id="codex-ask-the-installer">Codex: ask the installer</h3>
+<p>In a local Codex conversation, send:</p>
+<blockquote>
+<p>$skill-installer Install skills/flclash-ai-privacy from https://github.com/iPythoning/goglobal-infra. Install only the Skill; do not change my network. If that name already exists, show its source/version before overwriting anything. Report the actual installation location and how I invoke it next.</p>
+</blockquote>
+<p>After completion, type <code>$flclash-ai-privacy</code> in the next message. If it is missing from the selector, try a new conversation, then follow the tool's restart instructions if necessary. Restarting Codex does not require restarting FlClash.</p>
+<p>Current Codex documentation lists <code>~/.agents/skills</code> for user skills; an older installer can use its own location. Follow the installation report rather than installing duplicates. <a href="https://developers.openai.com/codex/skills/">Codex skills documentation</a></p>
+<h3 id="claude-code-or-manual-download">Claude Code or manual download</h3>
+<ol>
+<li>Open the <a href="https://github.com/iPythoning/goglobal-infra/releases/latest">repository's release downloads</a> and download <code>goglobal-infra-VERSION.zip</code>.</li>
+<li>Extract it and find <code>skills/flclash-ai-privacy</code>. Keep the entire folder, including SKILL.md, references, templates and scripts.</li>
+<li>Personal Claude Code skills belong at <code>~/.claude/skills/flclash-ai-privacy/</code>. Ask the running local Claude Code instance to create missing directories and copy the public folder using the message below. This avoids requiring beginners to create hidden dot-folders in Finder. Native Windows and WSL have different user directories; use the one where Claude Code runs.</li>
+<li>Start a Claude Code session and type <code>/flclash-ai-privacy</code>. <a href="https://code.claude.com/docs/en/skills">Official locations and invocation</a></li>
+</ol>
+<p>Installation message:</p>
+<blockquote>
+<p>Install the complete extracted public flclash-ai-privacy folder I identify into this user's personal skill directory; create missing folders. If that name exists, report it before overwriting. Install only these public files without reading/changing network configuration. Explain how to invoke it afterward.</p>
+</blockquote>
+<p>If it needs the source location, select the folder in macOS Finder and press <strong>Option + Command + C</strong>, or use Windows Copy as path. Provide only the public Skill folder's location, not a private profile. Without local file capability, the tool must give manual steps rather than claim installation.</p>
+<p>A browser-only chat or cloud session may not access this computer's files/apps. Such a tool can provide manual instructions, not claim it changed the local client.</p>
+<p><strong>Checkpoint:</strong> the tool identifies the loaded Skill and content. The installation name remains flclash-ai-privacy; its display title covers the Clash family.</p>
+<h2 id="9-what-to-say-in-each-conversation-round">9. What to say in each conversation round</h2>
+<p>Use <code>$flclash-ai-privacy</code> in Codex or <code>/flclash-ai-privacy</code> in Claude Code. Send one round at a time and read the result.</p>
+<h3 id="round-1-confirm-capabilities">Round 1: confirm capabilities</h3>
+<blockquote>
+<p>$flclash-ai-privacy I am new to Clash. Confirm that you loaded this Skill and explain whether you can inspect this computer's client, configuration and fresh connections. If you cannot operate it, give me manual steps instead of claiming completion.</p>
+</blockquote>
+<p>Expect a clear capability statement. Identify the actual device if needed; do not send passwords.</p>
+<h3 id="round-2-inspect-without-changes">Round 2: inspect without changes</h3>
+<blockquote>
+<p>Read-only: identify the active profile, client/core versions, routing mode, system proxy/TUN and current group selections. Do not switch the residential node, restart the core, close connections or change DNS. Do not expose credentials, private subscription URLs or a raw profile. Explain what is confirmed and what remains untested.</p>
+</blockquote>
+<p>Expect actual configuration/mode/group findings, not a conclusion based only on delay cards.</p>
+<h3 id="round-3-request-a-concrete-plan">Round 3: request a concrete plan</h3>
+<blockquote>
+<p>Chinese AI and mainland sites should use DIRECT. The overseas AI I actually use should use my existing verified fixed residential node. Preserve ordinary routing, subscription updates and automatic-group membership. Prepare a private local candidate and explain the exact group/rule changes and recovery method. Do not load it yet.</p>
+</blockquote>
+<p>Add real application names: Claude web, its API, your development tool, DeepSeek or Douyin. Node names are sufficient in chat; authentication stays local. A missing qualified exit must remain a missing requirement rather than being replaced with the fastest ordinary node.</p>
+<p>Expect an inspectable patch, compatibility findings, reload effects and recovery steps.</p>
+<h3 id="round-4-choose-when-to-apply">Round 4: choose when to apply</h3>
+<p>If the patch is right and a brief reconnection is acceptable:</p>
+<blockquote>
+<p>Apply the explained local patch. Keep FlClash running and preserve the current residential choice. Do not stop/restart the core or close all connections. I accept possible brief reconnections from configuration loading. Validate locally, load through the verified client workflow and check fresh requests.</p>
+</blockquote>
+<p>If reloading is unacceptable now:</p>
+<blockquote>
+<p>Do not load now. Keep the checked private candidate and recovery steps; tell me where to resume when reloading is acceptable.</p>
+</blockquote>
+<p>Existing authorization for the same change remains valid. If this client must restart to load, the agent must explain the limit and distinguish a source edit from live application.</p>
+<h3 id="round-5-verify-outcomes">Round 5: verify outcomes</h3>
+<blockquote>
+<p>Use fresh requests to verify my overseas AI, Chinese AI, douyin.com and ordinary overseas routing. Preserve ongoing connections. Report effective settings, actual paths, failures and untested layers separately. Do not treat a generic IP page, HTTP 401/404 or a third-party score as a complete pass.</p>
+</blockquote>
+<p>Expect actual matched rules/groups. DNS, browser UDP/WebRTC and IPv6 are independent checks when available. Parsed YAML, reachable HTTP and a functioning account are different results.</p>
+<h3 id="later-a-timeout-or-a-new-application">Later: a timeout or a new application</h3>
+<p>For a failure:</p>
+<blockquote>
+<p>This application suddenly timed out around this time. Inspect the current path, local network, DNS and actual request failure stage first. Do not switch my residential exit, test every node in bulk or restart networking. Give evidence and one staged diagnostic proposal.</p>
+</blockquote>
+<p>For a new service:</p>
+<blockquote>
+<p>I added this AI application/domain. Check current coverage first, then prepare a local addition under our Chinese-AI DIRECT / overseas-AI fixed-exit policy. Preserve other routing and subscriptions.</p>
+</blockquote>
+<h2 id="10-common-first-time-problems">10. Common first-time problems</h2>
 <table>
 <thead>
 <tr>
 <th>Symptom</th>
-<th>Next check</th>
+<th>First check</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>HK latency works but AI fails</td>
-<td>Authorized source, final gateway, node resolution, and actual chain; a tested HK selection affects new connections</td>
+<td>Installed app, no nodes</td>
+<td>Import your authorized subscription in section 3</td>
 </tr>
 <tr>
-<td>Only remote <code>socks5h</code> resolution works</td>
-<td>Compare local, TUN, DoH, and cached resolution; inspect bootstrap dependencies instead of pinning CDN addresses</td>
+<td>Nodes appear, browser fails</td>
+<td>Active profile, running state, Rule mode, proxy/VPN authorization and group choice</td>
 </tr>
 <tr>
-<td>AI matches Google / a broad overseas group</td>
-<td>Ordering or missing hostnames; inspect the actual matched rule</td>
+<td>Browser works, development tool fails</td>
+<td>Its own proxy behavior; inspect before considering TUN</td>
 </tr>
 <tr>
-<td>YAML changed but behavior did not</td>
-<td>Active profile, subscription replacement, DNS override, and version-specific loading</td>
+<td>Low delay but slow use</td>
+<td>Actual business requests and failure stages, not one probe URL</td>
 </tr>
 <tr>
-<td>Subscription group empty</td>
-<td>Download, User-Agent, response format, and filter; retain rejection rather than direct fallback</td>
+<td>Every card says Timeout</td>
+<td>Shared probe target, DNS, access network and upstream; cards alone do not identify the cause</td>
 </tr>
 <tr>
-<td>Web IP and STUN IP differ</td>
-<td>Separate UDP / WebRTC policy and call testing; TCP acceptance does not remove the difference</td>
+<td>Chinese AI uses overseas proxy</td>
+<td>Actual API hostname and Chinese-AI precedence before broad AI</td>
 </tr>
 <tr>
-<td>DNS location differs from egress</td>
-<td>Resolver organization, Anycast, and actual path rather than location alone</td>
+<td>YAML error</td>
+<td>Spaces, punctuation, exact names, duplicate keys and groups</td>
 </tr>
 <tr>
-<td>A restart is required under a continuity constraint</td>
-<td>Stop restart-dependent actions, explain the client limitation, and schedule a maintenance window</td>
+<td>Update removed the patch</td>
+<td>A direct subscription edit needs a durable override/merge plan</td>
+</tr>
+<tr>
+<td>Agent claims success, nothing changed</td>
+<td>Verify effective configuration and fresh requests rather than just the candidate file</td>
 </tr>
 </tbody>
 </table>
-<p>Use recovery material from the same local patch. Check that the source has not changed through subscriptions or another operator. If it has, create a new merge plan rather than replacing it wholesale with old data. Load through the safe current-version path and check connectivity, previous routing, and subscriptions again.</p>
-<h2 id="10-let-different-agents-follow-the-same-workflow">10. Let different agents follow the same workflow</h2>
-<p>The <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md">Skill</a> is a readable Markdown operating protocol. A tool with a Skill registry can install the directory; another agent can read it directly. It requires tools and permissions, does not depend on one model, and does not replace administrator authorization.</p>
-<p>Create a <strong>private local plan</strong> from the <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/templates/network-plan.example.json">template</a>, following the <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/references/plan-schema.md">plan schema</a>. Profile paths, names, DNS services, rule sources, and intervals come from that plan. Reviewed local runtime code preserves and handles credentials.</p>
-<p>Supply <code>dns.resolver_paths</code> explicitly and retain confirmed LAN / VPN policies; do not erase existing policies by copying the template's empty values. Private plaintext resolvers are permitted only for local namespaces declared in <code>local_dns_policy_keys</code>. Resolve an unclear scope during audit before applying.</p>
-<pre><code class="language-sh"># Set placeholder variables locally; do not store the private plan or receipt here.
-python3 &quot;${SKILL_DIR:?set Skill directory}/scripts/profile_patch.py&quot; &quot;${PRIVATE_PLAN:?set private plan path}&quot;
-python3 &quot;${SKILL_DIR:?set Skill directory}/scripts/profile_patch.py&quot; &quot;${PRIVATE_PLAN:?set private plan path}&quot; --apply
-python3 &quot;${SKILL_DIR:?set Skill directory}/scripts/profile_patch.py&quot; &quot;${PRIVATE_PLAN:?set private plan path}&quot; --rollback
-</code></pre>
-<p>The first command writes a safe review summary and local receipt. The second requires authorization for this change and a receipt bound to the source and plan. Rollback is allowed only while the source still equals this patch’s output. The helper writes the source only: <strong>it does not load FlClash, stop a core, or operate network interfaces</strong>. The agent must perform loading and acceptance using section 5 and current-client capability. See the <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/references/agent-workflow.md">agent workflow</a>.</p>
-<p>Example task:</p>
-<blockquote>
-<p>Read the complete <code>skills/flclash-ai-privacy/SKILL.md</code>. Audit my explicitly identified profile and create a reviewable local patch from my private plan. Fix AI egress only; preserve other routing, subscriptions, LAN, and other VPNs. Do not expose credentials, stop the core or TUN, or close existing streams. Report changes and unverified conditions first. When this change is already authorized, apply it and separately check TCP, DNS, WebRTC, IPv6, subscriptions, and retained connections. Do not claim a pass for an untested layer.</p>
-</blockquote>
-<p>An agent without application-control capability provides verified manual steps and waits for operator evidence. It must not invent changed settings. If a tool denies an action, explain the action and reason and honor that boundary.</p>
-<h2 id="11-windows-and-linux-branches">11. Windows and Linux branches</h2>
-<p>These platforms were not tested in this case; macOS results do not transfer to them.</p>
-<p>On Windows, audit interface DNS, system proxy, VPNs, and firewall rules. Mihomo’s <code>strict-route</code> can address multi-interface DNS behavior, but can interfere with other virtual networking software. Enabling it is a routing change requiring evaluation. <a href="https://wiki.metacubex.one/en/config/inbound/tun/#strict-route">Mihomo Windows TUN notes</a></p>
-<p>On Linux, identify the DNS owner among NetworkManager, systemd-resolved, and other managers. Check split DNS and application proxy settings. <code>auto-redirect</code> is Linux-specific; do not treat it as a macOS switch or copy firewall-rewriting commands into a live remote session. <a href="https://wiki.metacubex.one/en/config/inbound/tun/#auto-redirect">Mihomo Linux TUN notes</a></p>
-<p>Repeat the same independent acceptance checks. Under a continuity constraint, prefer existing running entry points; schedule first-time TUN creation or interface changes separately.</p>
-<h2 id="12-publication-and-maintenance">12. Publication and maintenance</h2>
-<p>After a client, subscription, rule, browser, or network change, repeat affected checks. Keep recent evidence for key AI new connections, extended DNS, WebRTC, and IPv6, with outstanding failures marked.</p>
-<p>Publish general steps, placeholders, and redacted conclusions only. Keep private profiles, subscription URLs, authentication, personal public IPs, internal domains, account pages, and device paths local. Do not market the guide as guaranteed residential service, uniform egress for every flow, or protection from suspension.</p>
-<p>Project: <a href="https://github.com/iPythoning/goglobal-infra">iPythoning/goglobal-infra</a>. Related: <a href="https://shop.paibao.ai">shop.paibao.ai</a>. The related link does not change acceptance criteria; purchased nodes still need independent verification.</p></article></main>
+<p>Claude eligibility follows <a href="https://www.anthropic.com/supported-countries">Anthropic's current policy</a>. A US address, residential label or third-party score does not guarantee account safety. Anonymous 401/404 responses may establish HTTP reachability, not authentication or model access.</p>
+<h2 id="11-continue-only-when-needed">11. Continue only when needed</h2>
+<p>You have completed the beginner path when you can identify client versus provider, import/select a profile, connect in Rule mode, explain group selection, edit a private YAML candidate and ask the Skill to inspect, prepare, apply and verify in separate rounds.</p>
+<p>The <a href="https://github.com/iPythoning/goglobal-infra/blob/main/docs/advanced-routing.en.md">advanced guide</a> preserves the historical Mihomo DNS, WebRTC, IPv6 and HK-chain investigation. Those settings need version-specific checks; chaining and TUN do not guarantee zero jitter. The <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/references/sanitized-network-case.md">latest redacted case</a> records the current daily policy.</p>
+<p>Project: <a href="https://github.com/iPythoning/goglobal-infra">iPythoning/goglobal-infra</a> · <a href="https://github.com/iPythoning/goglobal-infra/blob/main/skills/flclash-ai-privacy/SKILL.md">Skill</a> · Related: <a href="https://shop.paibao.ai">shop.paibao.ai</a>.</p></article></main>
 <footer><p>GoGlobal Infra · <a href="https://github.com/iPythoning/goglobal-infra">Source &amp; updates</a> · <a href="https://shop.paibao.ai">Related: shop.paibao.ai</a></p>
 <p>Verify each layer. A fixed address alone does not prove residential access or account safety.</p></footer></body></html>

@@ -5,29 +5,29 @@
   "shop_url": "https://shop.paibao.ai",
   "author": "iPythoning",
   "published": "2026-10-02",
-  "modified": "2026-10-02",
+  "modified": "2026-10-03",
   "stylesheet": "assets/styles.css",
   "skill_path": "skills/flclash-ai-privacy/SKILL.md",
   "homepage": {
     "title": "GoGlobal Infra · 出海基础设施与内容导航",
-    "description": "可核验的出海基础设施教程与工具。首期专题包含电脑设置、FlClash AI 分流、DNS 隐私和可移植智能体 Skill。",
-    "intro": "面向出海工作的实用基础设施内容。每篇教程给出可审阅的配置、独立验收方法与结果边界。",
-    "english_intro": "Practical infrastructure guides for working across borders. Review the configuration, test each network layer, and keep the limits of the evidence visible."
+    "description": "从零学习 Clash：下载和安装、节点与机场、导入订阅、规则分流、YAML 文件，以及安装 Skill 后的逐轮交互。",
+    "intro": "第一次使用也能跟着做：从安装和导入订阅开始，逐步学会分流、修改 YAML，再让智能体协助检查。",
+    "english_intro": "Start with installation and subscription import, then learn routing, YAML edits and step-by-step conversations with a local agent."
   },
   "articles": [
     {
       "source": "docs/tutorial.zh-CN.md",
       "output": "articles/flclash-ai-privacy.zh-CN.html",
       "language": "zh-CN",
-      "title": "FlClash 全链路教程：AI 固定出口、DNS 隐私与智能体 Skill",
-      "description": "详细配置 macOS、浏览器和 FlClash，保留机场订阅与普通分流，建立直连及 HK 上游路径，分别检测 DNS、WebRTC、IPv6 和 AI 出口。"
+      "title": "Clash 零基础教程：安装、订阅、YAML 与 Skill 一步步操作",
+      "description": "面向从未使用过 Clash 的读者，用 FlClash 示范下载安装、理解节点和机场、导入订阅、首次联网、编辑 YAML，以及 Skill 安装后的每轮交互。"
     },
     {
       "source": "docs/tutorial.en.md",
       "output": "articles/flclash-ai-privacy.en.html",
       "language": "en",
-      "title": "FlClash AI Routing and DNS Privacy: A Full-Path Guide",
-      "description": "Computer, browser and FlClash settings for known AI services, fixed egress, optional HK upstream, encrypted DNS, subscription preservation and a portable agent Skill."
+      "title": "Your First Clash Setup: Installation, Subscriptions, YAML and Skills",
+      "description": "A first-time guide to FlClash installation, nodes and providers, subscription import, browser connectivity, YAML edits and guided Skill conversations."
     }
   ]
 }

@@ -1,6 +1,12 @@
 # Work status
 
 - Scope: GoGlobal Infra content navigation / SEO site; first topic is bilingual FlClash AI routing, DNS privacy and a portable Skill, with shop.paibao.ai links.
+- 2026-10-03 beginner edition: rewrote both tutorials for first-time users: download/install, literal node/provider concepts, subscription import, client operations, YAML edits and five copyable Skill conversation rounds.
+- Kept the former guides and existing public case additions in docs/advanced-routing.{zh-CN,en}.md; retained the three-page site URLs, original routing policy and flclash-ai-privacy installation name. No helper code or live client/core/network setting changed.
+- Version evidence: FlClash 0.8.99 release/menu source checked; the historical macOS 0.8.98 case remains the only live client test. Other client/platform compatibility is capability-based, not an additional device test.
+- Validation: Skill lint/format, relative links, eight YAML fragments, two synthetic Mihomo 1.19.32 config checks, matching Markdown requirement and three-page build passed; independent content/security reviews and public privacy scan approved.
+- Ego-browser preview: home-to-Chinese click and English language switch passed; Chinese/English 390px pages have no document overflow, code blocks scroll internally, and Chinese mobile/YAML screenshots were inspected.
+- Distribution version: v1.2.0 ZIP + SHA256. Next on a reader's device: identify its actual client/core, keep credentials local, review a private candidate and verify fresh request paths after an authorized load.
 - 2026-10-03 Clash-family extension: retained the flclash-ai-privacy install path/name; added a capability/client matrix and a portable inline-rule fragment. MRS, dialer chaining, advanced DNS and the unchanged Python helper stay explicitly Mihomo-specific.
 - Policy remains Chinese AI/mainland DIRECT, foreign AI verified residential direct, other traffic on existing routing/automatic members; documented how Rule mode and proxy-page selections interact. No live credential profile, client or network setting was read/changed.
 - Validation: scoped lint/skill-creator checks, nine-file privacy/link/YAML/priority checks, isolated three-page site build/navigation checks and Mihomo 1.19.32 synthetic configuration-test passed; code/config review approved. No legacy or additional client/device live compatibility is claimed.
